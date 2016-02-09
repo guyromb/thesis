@@ -60,10 +60,9 @@
 \newpage
 
 \chapter{Abstract}
-The popularity of modelling languages is increasing, mostly due to the fact that it is an efficient way to end up with a high quality system \cite[p. ~6]{abstractions}. By providing immediate feedback to users they allow early detection of design errors \cite{lightning}. In contrast, those models are far than being a real product. Manual implementation is required, and therefore, it opens a door for mistakes. According to this, our motivation was to find a solution in this matter.\\ 
+The popularity of modeling languages is increasing. This is mostly due to the fact that using modeling languages is an efficient way to end up with a high quality system \cite[p. ~6]{abstractions}. By providing immediate feedback to users they allow early detection of design errors \cite{lightning}. Nonetheless these models are far from being a real implemented product. Manual implementation is required which makes it more prone to mistakes. Our motivation for this research was to find a solution in this matter.\\
 
-Truly speaking, it is not possible to develop fault-free software in practical scenario considering human nature \cite{reliability}.
-Software issues can be fixed, however, when the data is affected things become much harder. Data errors can cripple a reputation, shatter financial gains and create uncertainty in an organization. 	Therefore, we decided to focus on the generation of database systems rather than whole programs.\\
+We decided to focus our research on the field of automatic database generation rather than whole programs as we found it very interesting. Considering the human factor, it is not possible to develop a fault-free software in practice \cite{reliability}. When those issues occur the data itself may also be effected and this makes it more difficult to repair. Data errors can harm the reputation of an organization, diminish financial gains and create uncertainty in an organization.\\
 
 \textit{Forgery} is a tool for generating database schemes and synthesize transactions based on a predefined model. \textit{Forgery} uses \textit{Alloy} as a specification language for describing models and validating them. An \textit{Alloy} model is a collection of constraints and relations that describes a set of structures. Using pre- and postconditions it defines the operations that are allowed in the system. \textit{Forgery} converts them into database tables, procedures and structural constraints.
 
@@ -89,11 +88,11 @@ Synthesizing database transaction from a DSL for financial products
 \newpage
 
 \chapter{Preface}
-This research was done for Dutch bank ING. The original project aimed  to find a solution regarding the communication issues between technical and non-technical teams inside the organization. For example, specifications ambiguity and misunderstanding. The project was called \textit{Fors} and later on was renamed to \textit{Rebel}. It was basically a DSL that parses itself into \textit{Alloy}. With \textit{Alloy} it is possible to validate the model.\\
 
-\textit{Forgery} actually aims to find a solution regarding faults in the process of the realization of the model. \textit{Forgery} can use the output of \textit{Fors} to support the realization. Together with \textit{Fors} we may achieve two things: better specifications and better realization.\\
+This research was done for the Dutch bank ING. The original project aimed to find a solution regarding the communication issues between technical and non-technical teams inside the organization. For example, specifications ambiguity or misunderstandings between the teams. The project was initially called \textit{Fors} and later on was renamed to \textit{Rebel}. \textit{Rebel} is a domain specific language (DSL) that parses business software specifications into algebraic-based language which is called \textit{Alloy}. With \textit{Alloy} it is possible to validate those specifications and create a model that the technical team can implement.\\
 
-To get a better understanding of this paper, I would recommend to read some manuals of \textit{Alloy}.
+\textit{Forgery} aims to find a solution regarding faults in the process of the realization of a model. \textit{Forgery} continues the process of \textit{Fors} to support the realization. Together with \textit{Fors} we may achieve two things: better specifications and better realization.\\
+
 \newpage
 
 \chapter{Background}
@@ -101,31 +100,30 @@ This chapter discusses the background of developing \textit{Forgery}, the previo
 
 \section{Motivation}
 
-The success of implementing software projects is directly affected by the quality of its specifications \cite[p.~12]{requirements}. The specifications are typically defined based on two conceptual views: business and technical, usually by different teams or people with various backgrounds. The gap between those two different perspectives may lead to costly misunderstandings \cite[p.~1]{fors}. Changing specifications after delivery is often taking much more time and it is also more expensive \cite{defectstopten}.\\
+The success of implementing software projects is directly affected by the quality of its specifications \cite[p.~12]{requirements}. The specifications are typically defined based on two conceptual views: business and technical and are usually defined by different teams or people with various backgrounds. The gap between those two different perspectives may lead to costly misunderstandings \cite[p.~1]{fors}. Changing specifications after implementation of software often takes much more time and is also more expensive \cite{defectstopten}.\\
 
-Today several tools are offered for modelling and verifying software specifications. For example, \textit{Alloy} or \textit{Z-notation}. They allow software engineers to prototype ideas and identify errors before realization.\\
+Today several tools exist for modeling and verifying software specifications. Examples are $Alloy$ and $Z-notation$. These tools allow software engineers to create prototypes of their ideas and identify errors, before realization. \\
 
-However, such modelling tools may sometimes seem to be too complicated. Although the mathematical notations of these tools are unambiguous, the use of set theories, logic and algebra requires special expertises. As a result, these tools have a low communicational value \cite[p.~10]{fors}. In addition, those tools are useful especially for prototyping general models, and they are less effective when it comes to specific domains. Our domain of research focuses on financial systems. \\
+However, sometimes such modeling tools seems to be too complicated. Even though the mathematical notations of these tools are unambiguous, the use of set theories, logic and algebra requires special expertise \cite[p.~10]{fors}. In addition, these tools are useful especially for prototyping general models and less effective when it comes to specific domains. We focus on such a specific domain (financial systems). \\
 
-Therefore, the idea was to create a new tool that would be better suited for prototyping financial systems and that can be used by both the business and the development teams. We developed our own \textit{Domain Specific Language} (DSL) and called it \textit{Fors: Separating Configuration From Formal
-Specification} \cite{fors}. The concept of a DSL is very simple. Instead of aiming to be the best for solving any kind of computing problem, DSLs aim to be particularly good for solving a specific class of problems \cite{dsl}; In our case, financial systems. \\
+Because of the above-mentioned, we aimed at creating a new tool that would be better suited for prototyping financial systems and could be used by both the business and the development teams. We have developed our own Domain Specific Language (DSL) and called it $Fors$ which derived from: Separating Configuration From Formal Specification \cite{fors}. The concept of a DSL is very simple: Instead of aiming to solve any kind of computing problem, DSLs aim to solve specific class of problems. \cite{dsl}. In our case the DSL aims to solve problems of financial systems.  \\
 
-\textit{Fors} expresses the operations of a system in a language whose vocabulary, syntax and semantics are formally defined in an easy and natural way; so it would be familiar for both business and development teams. In addition, \textit{Fors} is able to check the correctness of the model. \textit{Fors} parse formal specifications into \textit{Alloy} syntax: algebraic logic formulas based on the notion of relations (We will discuss it into details later on). Using \textit{Alloy} engine we able to solve those formulas and find ambiguities in the model.\\
+$Fors$ expresses the operations of a system in a language whose vocabulary, syntax and semantics are formally defined in an easy and natural way. This way, $Fors$ is comprehensible for both business and development teams. In addition, $Fors$ is able to check the correctness of a software model. $Fors$ parse formal specifications into $Alloy$ syntax: algebraic logic formulas based on the notion of relations (We will elaborate on this more later in this thesis). Using an $Alloy$ based engine we are able to solve such formulas and find ambiguities in a model. \\
 
-\textit{Fors} minimizes the gap between the business and the technical views by creating a common language, and able to identify contradictions or faults in the specified model. However, there is still a main issue that remains open: Programmers will have to implement the real product by hand (according to the specifications). Hence, it is not guaranteed that the final results would be exactly the same as defined in the specifications and in light of human factors, it is an error prone.\\
+$Fors$ minimizes the gap between the business and the technical views by creating a common language and the ability to identify contradictions or faults in a specific model. However, there is still a main issue that remains: Programmers will have to implement the real product by hand (according to the specifications). Hence, it is not guaranteed that the final results would be exactly the same as defined in the specifications. When considering human factor also this system  is prone to error. \\
 
-Therefore, our motivation was to find whether we able to create a tool for automatic system generation. We decided to scope our research on the data-side as we found it highly interesting. Data errors can cripple a reputation, shatter financial gains and create uncertainty in an organization. Synthesizing the data may avoid such events.\\
+Therefore, our motivation was to find out whether we would be able to create a tool for automatic system generation. We decided to scope our research on the data-side as we found it highly interesting. As mentioned previously, data errors can harm the reputation of an organization, diminish financial gains and create uncertainty  in an organization. Synthesizing the data may avoid such events.\\
 
-The data is usually stored in a record-keeping system called database. Namely, a repository for a collection of data files which users may perform a variety of operations on it. For example, adding files, modifying or reading them etc \cite[p.~11]{introtodb}.\\
+Data is usually stored in a record-keeping system called a database. A database therefore is a repository for a collection of data files on which users may perform a variety of operations (e.g. adding, modifying or reading files)  \cite[p.~11]{introtodb}.\\
 
 The scope of database is often described as having the following three aspects:
 \begin{itemize}
   \item Data Structure - the structure is a representation of the arrangement, relationships, and contents of data \cite{datastruct}. The structure is described diagrammatically by the data schema.  
-  \item Data Manipulation - the available operations that can be applied on the data. Mainly CRUD operations (Create, Read, Update and Delete).
+  \item Data Manipulation - the available operations that can be applied on the data. Mainly $CRUD$ (Create, Read, Update and Delete) operations.
   \item Data Integrity - refers to the accuracy and consistency (validity) of data over its lifecycle.
 \end{itemize}
 
-The use of databases have few numerous benefits which are mostly obtained by the notion of centralized data control. First, redundancy can be reduced. In contrast to private files, using a relational database we may integrate multiple related or overlapping information together. Second, by linking multiple rows and use of transactions we can avoid inconsistency (corollary of the previous point). Also, security (permissions) and standards (e.g. representation of the data) can be enforced. And last, sharing data between multiple workstations is easy \cite[p.~16]{introtodb}.\\
+Using a database has numerous benefits that lay mostly in the fact that data control is centralized. First, redundancy can be reduced. In contrast to private files, by using a relational database it is possible to merge related or overlapping information. Second, by linking multiple rows and use of transactions we can avoid inconsistency (corollary of the previous point). Also, security (permissions) and standards (e.g. representation of the data) can be enforced. And last, sharing data between multiple workstations is easy \cite[p.~16]{introtodb}.\\
 
 Since \textit{Fors} uses \textit{Alloy}; and \textit{Alloy} is based on relations, we researched if it is possible to make a link between \textit{Alloy} and relational databases; and then we may automatically generate a matching database.\\
 
