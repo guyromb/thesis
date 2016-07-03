@@ -8,7 +8,7 @@
 \BOOKMARK [1][-]{section.3.3}{Research Question}{chapter.3}% 8
 \BOOKMARK [0][-]{chapter.4}{Alloy}{}% 9
 \BOOKMARK [1][-]{section.4.1}{Data Structure}{chapter.4}% 10
-\BOOKMARK [2][-]{subsection.4.1.1}{Cardinalities}{section.4.1}% 11
+\BOOKMARK [2][-]{subsection.4.1.1}{Quantifiers}{section.4.1}% 11
 \BOOKMARK [1][-]{section.4.2}{Data Operations}{chapter.4}% 12
 \BOOKMARK [1][-]{section.4.3}{Data Invariants}{chapter.4}% 13
 \BOOKMARK [1][-]{section.4.4}{Assertions}{chapter.4}% 14
@@ -22,12 +22,12 @@
 \BOOKMARK [1][-]{section.5.4}{Scheme Generation}{chapter.5}% 22
 \BOOKMARK [2][-]{subsection.5.4.1}{Atoms Tables}{section.5.4}% 23
 \BOOKMARK [2][-]{subsection.5.4.2}{Fields Relations}{section.5.4}% 24
-\BOOKMARK [2][-]{subsection.5.4.3}{Cardinalities}{section.5.4}% 25
-\BOOKMARK [1][-]{section.5.5}{Predicates Generation}{chapter.5}% 26
-\BOOKMARK [2][-]{subsection.5.5.1}{Using Stored Procedures}{section.5.5}% 27
+\BOOKMARK [1][-]{section.5.5}{Procedures Generation}{chapter.5}% 25
+\BOOKMARK [2][-]{subsection.5.5.1}{Quantifiers}{section.5.5}% 26
+\BOOKMARK [2][-]{subsection.5.5.2}{Predicates}{section.5.5}% 27
 \BOOKMARK [1][-]{section.5.6}{Forgery Algorithms}{chapter.5}% 28
 \BOOKMARK [2][-]{subsection.5.6.1}{Scheme Generation}{section.5.6}% 29
-\BOOKMARK [2][-]{subsection.5.6.2}{Procedures Generation for Predicates}{section.5.6}% 30
+\BOOKMARK [2][-]{subsection.5.6.2}{Procedures Generation for Predicates, Facts and Quantifiers}{section.5.6}% 30
 \BOOKMARK [2][-]{subsection.5.6.3}{Procedures Generation for Facts}{section.5.6}% 31
 \BOOKMARK [1][-]{section.5.7}{Evaluation}{chapter.5}% 32
 \BOOKMARK [2][-]{subsection.5.7.1}{Reverse Engineering}{section.5.7}% 33

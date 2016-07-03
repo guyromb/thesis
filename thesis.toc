@@ -9,7 +9,7 @@
 \contentsline {section}{\numberline {3.3}Research Question}{9}{section.3.3}
 \contentsline {chapter}{\numberline {4}Alloy}{10}{chapter.4}
 \contentsline {section}{\numberline {4.1}Data Structure}{10}{section.4.1}
-\contentsline {subsection}{\numberline {4.1.1}Cardinalities}{10}{subsection.4.1.1}
+\contentsline {subsection}{\numberline {4.1.1}Quantifiers}{10}{subsection.4.1.1}
 \contentsline {section}{\numberline {4.2}Data Operations}{12}{section.4.2}
 \contentsline {section}{\numberline {4.3}Data Invariants}{13}{section.4.3}
 \contentsline {section}{\numberline {4.4}Assertions}{14}{section.4.4}
@@ -23,14 +23,14 @@
 \contentsline {section}{\numberline {5.4}Scheme Generation}{20}{section.5.4}
 \contentsline {subsection}{\numberline {5.4.1}Atoms Tables}{21}{subsection.5.4.1}
 \contentsline {subsection}{\numberline {5.4.2}Fields Relations}{22}{subsection.5.4.2}
-\contentsline {subsection}{\numberline {5.4.3}Cardinalities}{23}{subsection.5.4.3}
-\contentsline {section}{\numberline {5.5}Predicates Generation}{24}{section.5.5}
-\contentsline {subsection}{\numberline {5.5.1}Using Stored Procedures}{25}{subsection.5.5.1}
+\contentsline {section}{\numberline {5.5}Procedures Generation}{23}{section.5.5}
+\contentsline {subsection}{\numberline {5.5.1}Quantifiers}{23}{subsection.5.5.1}
+\contentsline {subsection}{\numberline {5.5.2}Predicates}{24}{subsection.5.5.2}
 \contentsline {subsubsection}{Alloy Predicates}{25}{section*.2}
 \contentsline {subsubsection}{Atoms Creation:}{26}{section*.3}
 \contentsline {section}{\numberline {5.6}Forgery Algorithms}{28}{section.5.6}
 \contentsline {subsection}{\numberline {5.6.1}Scheme Generation}{28}{subsection.5.6.1}
-\contentsline {subsection}{\numberline {5.6.2}Procedures Generation for Predicates}{29}{subsection.5.6.2}
+\contentsline {subsection}{\numberline {5.6.2}Procedures Generation for Predicates, Facts and Quantifiers}{29}{subsection.5.6.2}
 \contentsline {subsection}{\numberline {5.6.3}Procedures Generation for Facts}{31}{subsection.5.6.3}
 \contentsline {section}{\numberline {5.7}Evaluation}{32}{section.5.7}
 \contentsline {subsection}{\numberline {5.7.1}Reverse Engineering}{32}{subsection.5.7.1}

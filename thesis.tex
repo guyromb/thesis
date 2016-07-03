@@ -232,7 +232,7 @@ During our research we have discovered that \textit{Alchemy} has some significan
 
 In addition, $Alchemy$ uses an external API that check the constrains. Applying constraints within the database itself would be much more secured and better in terms of data integrity. It can ensure that data would not be modified in an unauthorized or improper way \cite[p.~2]{security}. Moreover, the generated scheme structure is far than being a natural database as it uses a single table for all the data. Although it doesn't seem to be an issue, we have to remember what $Fors$ was trying to achieve: clarity for both developers and business teams.\\
 
-\textit{Forgery} tries to overcome with these problems using a different approach. \textit{Forgery} generates a pure SQL query that is used to construct full-scale database. $Signatures$ are converted into relational tables with $Foreign$ keys based on the specified relations and $Unique$ keys based on $cardinalities$. We will discuss it into details in \ref{sec:schemegen}.\\ 
+\textit{Forgery} tries to overcome with these problems using a different approach. \textit{Forgery} generates a pure SQL query that is used to construct full-scale database. $Signatures$ are converted into relational tables with $Foreign$ keys based on the specified relations and $Unique$ keys based on $qunatifiers$. We will discuss it into details in \ref{sec:schemegen}.\\ 
 
 $Facts$ are converted into database procedures that are used for the data validation, and $Predicates$ into inserting, updating or deleting procedures. All operations occurred transactionally so a failure of one of the operation will lead to a revert action. We will discuss it into details in \ref{sec:predicatesgen}.\\
 
@@ -282,9 +282,9 @@ The signatures in this example are $price$, $product$ and $shop$. The tariff des
 \includegraphics[scale=0.6]{shops1}
 \end{center}
 
-\subsection{Cardinalities}
+\subsection{Quantifiers}
 
-Cardinality refers to the amount of elements in a set. Alloy allows us to define cardinality constraints on the data model. Alloy supports $lone$ (size is at most 1), $one$ (size is only 1), $some$ (size is at least 1) and $no$ (size is 0). For this example, we assume that we want only one shop in our model:
+Quantifier refers to the amount of elements in a set. Alloy allows us to define quantifier constraints on the data model. Alloy supports $lone$ (size is at most 1), $one$ (size is only 1), $some$ (size is at least 1), $no$ (size is 0). and $all$ (size is >= 0) which is used by default. For this example, we assume that we want only one shop in our model:
 
 \begin{lstlisting}
 sig Price {}
@@ -405,7 +405,7 @@ In this chapter we will discuss on the solution that we offer.
 
 \section{Key Ingredients}
 
-As introduced in the background Alloy specification consists of four main parts: Signatures (and their Cardinalities), Predicates, Facts and Assertions. Together they hint about how the model should be implemented. Using few examples we will demonstrate the conversion from Alloy specifications to an implemented database.\\
+As introduced in the background Alloy specification consists of four main parts: Signatures (and their Quantifiers), Predicates, Facts and Assertions. Together they hint about how the model should be implemented. Using few examples we will demonstrate the conversion from Alloy specifications to an implemented database.\\
 
 The following example specifies a homework submission and grading system. 
 
@@ -539,7 +539,7 @@ $Facts$ procedures modify the flag $return\_value$ to $1$ or $0$ (logic True or 
 	\item Syntax Validator: \textit{Forgery} checks the input using \textit{Alloy} API. A failure throws an exception, and stops the execution.
 	\item Parser and Mappers: \textit{Forgery} parses the \textit{Alloy} syntax and generates ASTs (Abstract Syntax Trees). Those ASTs are flattened to a simpler map structures for later processing.
 	\item Tables Generator: Creating SQL tables including keys, relations and uniqueness constraints.
-	\item Procedures Generator for Facts and Cardinalities: Creating SQL procedures for verifying the specified invariants and cardinalities. 
+	\item Procedures Generator for Facts and Quantifiers: Creating SQL procedures for verifying the specified invariants and quantifiers. 
 	\item Procedures Generator for Predicates: Creating SQL procedures for systemic operations according to the specifications.
 	\item Traces Generator: Reverse engineering for Alloy traces, used for the Validator.
 	\item Validator: replicating the operations that made in Alloy for finding models and comparing data to validate behavioural similarities.
@@ -623,7 +623,7 @@ Every table contains the ids of the atoms that the relation describes. The table
 
 \noindent Moreover, Forgery adds SQL Foreign Keys that links between the tables. They are naturally extracted from the Alloy semantics. It guarantee that every junction table will contain valid data that points to existing atoms.\\
 
-\noindent When a relation points to a another relation, Forgery extracts the atomic type. Which means, in other words, Forgery flattens all the relations so the tables will contain pointers to atomic tables only, and this way, the relationships between the tables would be simpler. It adds data redundancy but it makes the algorithm much more simpler.
+\noindent When a relation points to a another relation, Forgery extracts the atomic type. Which means, in other words, Forgery flattens all the relations so the tables will contain pointers to atomic tables only, and this way, the relationships between the tables would be simpler. It adds data redundancy but it makes the algorithm much more simple (see next chapter).
 
 \begin{figure}[h!]
 \centering
@@ -632,17 +632,68 @@ Every table contains the ids of the atoms that the relation describes. The table
 \end{figure}
 
 \newpage
-\subsection{Cardinalities}
-\noindent Alloy syntax supports multiple quantifiers to describe constraints on the data model: \textbf{\textit{lone}} (at most one atom), \textbf{\textit{some}} (at least one atom) and \textbf{\textit{one}} (single atom). Forgery uses two techniques to implement those constraints: \\
+\section{Procedures Generation}
+
+\noindent Stored Procedure is a SQL feature that encapsulates a query for re-usability purposes. It is used as a layer that communicates with the database internally. Stored Procedures allow faster execution time and they may be useful as a safer synthesizing mechanism (E.g. privileges) \cite{when}.\\
+
+\noindent Basically, Stored Procedures are similar to other programming languages in that they can accept input parameters and return multiple values. Also, they may contain programming statements for performing operations in the database and indicate status of failure or success.\\
+
+\noindent Forgery uses stored procedures for the SQL implementation of Quantifiers, Predicates and Facts.
+
+\subsection{Quantifiers}
+\noindent Alloy syntax supports multiple quantifiers to describe constraints on the data model: \textbf{\textit{no}} (zero), \textbf{\textit{lone}} (at most one atom), \textbf{\textit{some}} (at least one atom) and \textbf{\textit{one}} (single atom).\\
+
+Quantifiers can be used in multiple places. E.g. expressions, signatures, facts etc.
+For example, the constraint $lone e$ says that the expression $e$ denotes a relation containing at most one tuple. Or $one sig S$, for example, declares S to be a signature whose set contains exactly one element.\\
+
+For each quantifier we create a procedure. Each procedure contains a query that counts the rows and group it based on the quantifier context and then compare it to the specified quantifier definition ($c<=1$, $c==1$, $c>1$, $c==0$).\\
+
+We implemented quantifiers as invariants. In other words, these procedures are automatically called every time when the database is changed. If any violation occurs, the data will be reverted and error will be shown (transactional action). The quantifier procedures are stored in the database and can be identified with the prefix \textit{q\_}.\\
+
+For example, for $work:\ roster \rightarrow lone\ Submission$ we generate the following procedure:
+
+\begin{lstlisting}[escapechar=@,language=SQL]
+DELIMITER //
+CREATE PROCEDURE `c_work`(OUT return_value tinyint unsigned)
+BEGIN
+	IF EXISTS (
+		SELECT * FROM `course`
+		LEFT JOIN `work` ON `work`.`course_id`=`course`.`id`
+		GROUP BY `submission_id`, `course_id`, `student_id` 
+		HAVING COUNT(`work`.`id`) > 1
+	) THEN
+		set return_value = 1;
+	ELSE set return_value = 0;
+	END IF;
+END //
+\end{lstlisting}
+
+Or when it comes to context of signatures, $one sig School {}$ we generate the following procedure:
+
+\begin{lstlisting}[escapechar=@,language=SQL]
+DELIMITER //
+CREATE PROCEDURE `c_work`(OUT return_value tinyint unsigned)
+BEGIN
+	IF EXISTS (
+		SELECT * FROM `school` HAVING COUNT (`id`) != 1
+	) THEN
+		set return_value = 1;
+	ELSE set return_value = 0;
+	END IF;
+END //
+\end{lstlisting}
+
+\begin{comment}
+Forgery uses two techniques to implement those constraints: \\
 
 \noindent 1. Adding Unique Indexes for tables: the shared condition of \textit{lone}, \textit{one} and \textit{set} is that the table must not contain more than one similar element. Adding Unique Index guarantee this condition (although only partially/weaker condition for \textit{one}). \\
 
-\noindent 2. Creating Stored Procedures: \textit{one} and \textit{some} cardinalities cannot be fully implemented by applying structural constraints into the SQL table itself. Therefore, we create a SQL procedure instead for each cardinality. The procedure contains a query that counts the rows and group it based on the cardinality criteria and then compare it to the specified cardinality. Those procedures are automatically called when the data is changed. If any violation occurs, the data will be reverted and error will be shown (transactional action). The cardinality procedures are stored in the database and can be identified with the prefix \textit{c\_}. More about procedures will be explained in the next chapter.
+\noindent 2. 
+\end{comment}
 
-\newpage
-\section{Predicates Generation}
+\subsection{Predicates}
 \label{sec:predicatesgen}
-This overview will discuss about the logic behind interpretation of Alloy predicates and creation of atoms. The same example from the previous chapter will be used with few additional statements.\\
+In this section we will discuss about the logic behind interpretation of Alloy predicates and creation of atoms. The same example from the previous sections will be expanded.\\
 
 \noindent The new statements introduces new features such as adding or deleting students, as they enroll in or drop the course, and assigning grades for each of their submitted work in pairs.\\
 
@@ -676,13 +727,6 @@ g : Grade) {
 \end{lstlisting}
 
 \newpage
-\subsection{Using Stored Procedures}
-
-\noindent Stored Procedure is a SQL feature that encapsulates a query for re-usability purposes. It is used as a layer that communicates with the database internally. Stored Procedures allow faster execution time and they may be useful as a safer synthesizing mechanism (E.g. privileges) \cite{when}.\\
-
-\noindent Basically, Stored Procedures are similar to other programming languages in that they can accept input parameters and return multiple values. Also, they may contain programming statements for performing operations in the database and indicate status of failure or success.\\
-
-\noindent Forgery uses stored procedures for multiple purposes. One of them was already introduced previously in reference to cardinalities. Some others will be covered as well in this chapter.\\
 
 \subsubsection{Alloy Predicates}
 
@@ -721,7 +765,7 @@ THEN
 END IF;
 \end{lstlisting}
 
-\item Union - the operator $'+'$ is used to compute union of sets. [Output: A set].\\
+\item Union - the operator $'+'$ is used to compute union of sets. [Output: Set].\\
 Example: $c'.roster = c.roster + s1$
 
 \begin{lstlisting}[escapechar=@,language=SQL]
@@ -762,7 +806,7 @@ IF EXISTS
 END IF;
 \end{lstlisting}
 
-Note: In some cases an inner join would be a better practice as it checks the values in the other tables as well, and not just a specific row. However, since we use Foreign keys in Forgery, all ids must refer to an existence id. 
+Note: In some cases an inner join would be a better practice as it also checks the values in the relevant foreign tables. For example, it will check that a reference id in one table actually points to an existing row in another table. However, in $Forgery$ we use Foreign keys, which forces the data to be consistent, and rows cannot be deleted if other rows reference to them.
 
 \begin{lstlisting}[escapechar=@,language=SQL]
 IF EXISTS
@@ -785,6 +829,8 @@ Example: $c'.work = c.work + (s1 \rightarrow \_b) + (s2 \rightarrow \_b)$
 INSERT INTO `work` (course_id, student_id, submission_id) 
 	VALUES (c, s1, _bNew), (c, s2, _bNew);
 \end{lstlisting}
+
+\item Equality - represented by $=$ symbol. We use checksum to see if tables are equal.
 
 \begin{comment}
 In our example the formula $no$ $c'.work [\_sNew]$ meant to verify that there is no work for this course that was submitted by the enrolling student. The generated query is:
@@ -815,12 +861,12 @@ END;
 
 START TRANSACTION;
 	INSERT INTO `submission` (`value`) VALUES (atomVal);
-	-- facts and cardinalities are included here.
+	-- facts and quantifiers are included here.
 COMMIT;
 END //
 \end{lstlisting}
 
-\noindent As mentioned before, \textit{Forgery} verifies all the invariants (cardinalities and facts) in each procedure. This rule applies here. This means that if there is any violation, the data will be reverted.
+\noindent As mentioned before, \textit{Forgery} verifies all the invariants (quantifiers and facts) in each procedure. This rule also applies here.
 
 \newpage
 
@@ -837,7 +883,7 @@ END //
 
 \subsection{Scheme Generation}
 
-The scheme is generated based on the signatures, fields and cardinalities.\\
+The scheme is generated based on the signatures, fields and quantifiers.\\
 
 Let $S$ be a list of signatures, $s$ is a single signature, $R$ is its contained relations, $r$ is a single relation.\\
 
@@ -850,7 +896,7 @@ Let $S$ be a list of signatures, $s$ is a single signature, $R$ is its contained
 	\For {each signature $s$ in $S$}
 		\State \textbf{add} $(s.name: {id, value})$ \textbf{to} $tables$
 		\For {each relation $r$ in $s.R$}
-			\State $fields = \{\}$ \Comment set of table fields with cardinalities
+			\State $fields = \{\}$ \Comment set of table fields with quantifiers
 			\State \textbf{add} $s.name$.`\_id` \textbf{to} fields
 			\State \textbf{add} Atomic fields ($r.op1$, $tables$, $S$) \textbf{to} fields
 			\If {$r.type$ is $Binary$}
@@ -888,9 +934,9 @@ Let $S$ be a list of signatures, $s$ is a single signature, $R$ is its contained
 		\For {$field$ in $tables[table]$}
 			\State \textbf{add} SQL Statement ("Create Column", $field.name$) \textbf{to} $query$
 			\State \textbf{add} SQL Statement ("Foreign Key", $field.name$) \textbf{to} $query$
-			\If{$field.cardinality$ is $lone$ or $one$ or $set$} \State \textbf{add} SQL Statement ("Create Unique Index", $fields$) \textbf{to} $query$
+			\If{$field.quantifier$ is $lone$ or $one$ or $set$} \State \textbf{add} SQL Statement ("Create Unique Index", $fields$) \textbf{to} $query$
 			\EndIf
-			\If{$field.cardinality$ is $some$ or $one$} \State // Cardinality will be created using procedures
+			\If{$field.quantifier$ is $some$ or $one$} \State // Quantifier will be created using procedures
 			\EndIf
 		\EndFor
 		\State \textbf{add} SQL Statement ("Create Column", $`id`$) \textbf{to} $query$
@@ -903,15 +949,20 @@ Let $S$ be a list of signatures, $s$ is a single signature, $R$ is its contained
 
 \newpage
 
-\subsection{Procedures Generation for Predicates}
+\subsection{Procedures Generation for Predicates, Facts and Quantifiers}
 
 Let $p$ be a predicate, containing its name, its inputs and its body. The body contains the pre- and the post-conditions (operations). $l$ is a line of operation. $i$ is an input. It contains its type, its name and its value.\\
 
+Let $f$ be a fact, containing its name, its variables, and its body. The body contains the invariants. $n$ is an invariant. Each variable $v$ contains its type, its name and its value.\\
+
+Let $c$ be a quantifier
+
+
 \begin{algorithm}
-\caption{Returns the predicates query}
+\caption{Returns the procedures creation query}
 \label{array-sum2}
 \begin{algorithmic}[2]
-\Function{Generate Procedures}{$predicates$}
+\Function{Generate Procedures}{$predicates$, $facts$, $quantifiers$}
 	\State $query = ""$
 	\For {$p$ in $predicates$}
 	\State \textbf{add} SQL Statement ("CREATE PROCEDURE $p.name$ (list of $p.inputs$)") \textbf{to} $query$
@@ -921,8 +972,8 @@ Let $p$ be a predicate, containing its name, its inputs and its body. The body c
 			\EndIf
 		\EndFor
 		
-		\For {$l$ in $p.body$} 
-		\Comment Operations over tables
+		\For {$l$ in $p.body$} \Comment Operations over tables
+			\State \textbf{l = Simplify tuples and joins (l)}
 			\If{$l.algebraicOperation$ is $+$} \State \textbf{add} SQL Statement ("IF NOT EXISTS INSERT INTO $l.op1$ SET value='$p.varInputs[l.op2]$'") \textbf{to} $query$
 			
 			\ElsIf{$l.algebraicOperation$ is $-$} \State \textbf{add} SQL Statement ("IF EXISTS DELETE FROM $l.op1$ WHERE value='$p.varInputs[l.op2]$'") \textbf{to} $query$
@@ -931,26 +982,14 @@ Let $p$ be a predicate, containing its name, its inputs and its body. The body c
 			
 			\ElsIf{$l.algebraicOperation$ is $not in$} \State \textbf{add} SQL Statement ("IF EXISTS (SELECT * FROM $l.op2$ WHERE value='$p.varInputs[l.op1]$') THEN (SELECT 'precondition violated'; ROLLBACK);") \textbf{to} $query$
 			
-			\ElsIf{$l.algebraicOperation$ is $=$} \State \textbf{add} SQL Statement ("IF EXISTS (CHECKSUM TABLE $l.op1$, $l.op2$) THEN (SELECT 'precondition violated'; ROLLBACK);") \textbf{to} $query$
+			\ElsIf{$l.algebraicOperation$ is $=$} \State \textbf{add} SQL Statement ("IF (CHECKSUM TABLE $l.op1$, $l.op2$) IS NULL THEN (SELECT 'precondition violated'; ROLLBACK);") \textbf{to} $query$
 			
 			\EndIf
 		\EndFor
 
 	\State \textbf{add} SQL Statement ("COMMIT;") \textbf{to} $query$
-	
-		\State \textbf{add} SQL Statement ("Create Table", $table.name$) \textbf{to} $query$
-		\For {$field$ in $tables[table]$}
-			\State \textbf{add} SQL Statement ("Create Column", $field.name$) \textbf{to} $query$
-			\State \textbf{add} SQL Statement ("Foreign Key", $field.name$) \textbf{to} $query$
-			\If{$field.cardinality$ is $lone$ or $one$ or $set$} \State \textbf{add} SQL Statement ("Create Unique Index", $fields$) \textbf{to} $query$
-			\EndIf
-			\If{$field.cardinality$ is $some$ or $one$} \State \textbf{add} SQL Statement ("Create Cardinality Procedure", $fields$) \textbf{to} $query$
-			\EndIf
-		\EndFor
-		\State \textbf{add} SQL Statement ("Create Column", $`id`$) \textbf{to} $query$
-		\State \textbf{add} SQL Statement ("Create Primary Key", $`id`$) \textbf{to} $query$
 	\EndFor
-			\State \textbf{return} $query$
+	\State \textbf{return} $query$
 \EndFunction
 \end{algorithmic}
 \end{algorithm}
