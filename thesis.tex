@@ -282,9 +282,9 @@ The signatures in this example are $price$, $product$ and $shop$. The tariff des
 \includegraphics[scale=0.6]{shops1}
 \end{center}
 
-\subsection{Quantifiers}
+\section{Quantifiers}
 
-Quantifier refers to the amount of elements in a set. Alloy allows us to define quantifier constraints on the data model. Alloy supports $lone$ (size is at most 1), $one$ (size is only 1), $some$ (size is at least 1), $no$ (size is 0). and $all$ (size is >= 0) which is used by default. For this example, we assume that we want only one shop in our model:
+Quantifier refers to the amount of elements in a set. Alloy allows us to define quantifier constraints on the data model. Alloy supports $lone$ (size is at most 1), $one$ (size is only 1), $some$ (size is at least 1), $no$ (size is 0). and $all/set$ (size is >= 0) which is used by default. For this example, we assume that we want only one shop in our model:
 
 \begin{lstlisting}
 sig Price {}
@@ -592,7 +592,7 @@ sig Course {
 \noindent In addition, a signature can define fields (e.g. in Course). A field describes a relation between different types of Signatures. Basically, it is a set of tuples which consists different types of data. Such a relation can be unary or binary. E.g. roster and work respectively.
 
 \newpage
-\subsection{Atoms Tables}
+\subsection{Atom Tables}
 \textbf{The signatures \textit{Student}, \textit{Submission}, \textit{Grade} and \textit{Course} are sets of atoms:}
 
 \noindent$Student = \{Guy, Tijs, Jouke ..\}\\
@@ -611,7 +611,7 @@ Chosen types: \textit{Int} for \textit{id} as it is always an integer, and \text
 \end{figure}
 
 \newpage
-\subsection{Fields Relations}
+\subsection{Field Relations}
 \textbf{The signature \textit{Course} defines the following relations: roster (enrolled students), work and gradebook.}
 
 \noindent$roster = \{<Construction, Guy>, <Construction, Tijs>..\}\\
@@ -650,7 +650,7 @@ For each quantifier we create a procedure. Each procedure contains a query that 
 
 We implemented quantifiers as invariants. In other words, these procedures are automatically called every time when the database is changed. If any violation occurs, the data will be reverted and error will be shown (transactional action). The quantifier procedures are stored in the database and can be identified with the prefix \textit{q\_}.\\
 
-For example, for $work:\ roster \rightarrow lone\ Submission$ we generate the following procedure:
+For example, the expression $work:\ roster \rightarrow lone\ Submission$ will be converted to the following procedure:
 
 \begin{lstlisting}[escapechar=@,language=SQL]
 DELIMITER //
@@ -668,7 +668,7 @@ BEGIN
 END //
 \end{lstlisting}
 
-Or when it comes to context of signatures, $one sig School {}$ we generate the following procedure:
+Or when it comes to context of signatures, e.g. $one\ sig\ School {}$ we generate the following procedure:
 
 \begin{lstlisting}[escapechar=@,language=SQL]
 DELIMITER //
@@ -693,7 +693,7 @@ Forgery uses two techniques to implement those constraints: \\
 
 \subsection{Predicates}
 \label{sec:predicatesgen}
-In this section we will discuss about the logic behind interpretation of Alloy predicates and creation of atoms. The same example from the previous sections will be expanded.\\
+In this section we will discuss about the logic behind the interpretation of Alloy predicates and creation of atoms. The same example from the previous sections will be expanded.\\
 
 \noindent The new statements introduces new features such as adding or deleting students, as they enroll in or drop the course, and assigning grades for each of their submitted work in pairs.\\
 
@@ -868,6 +868,48 @@ END //
 
 \noindent As mentioned before, \textit{Forgery} verifies all the invariants (quantifiers and facts) in each procedure. This rule also applies here.
 
+\subsection{Facts}
+\label{sec:factsgen}
+A $fact$ is a constraint that always holds. Similarly to quantifiers, we use procedures as an implementation for such invariants. Those procedures are called when the database is changed and revert the data in case of failure. This way, we can guarantee that the data always valid. \\
+
+A fact consist of a name and the constraint, which is given as a block of algebraic sequence (written like in predicates, see operators in the previous section). We can also define variables and quantifiers criteria. E.g. The constraint $one\ x:\ S | F$ says that there is exactly one x that satisfies the constraint F.\\
+
+The following constraint defines that all students must be enrolled.
+
+\begin{lstlisting}
+sig Student {}
+sig Course {
+	roster: set Student,
+}
+
+fact mustBeEnrolled {
+	all c: Course, s: Student | 
+	s in c.roster
+}
+\end{lstlisting}
+
+We convert this fact into the following procedure:
+
+\begin{lstlisting}[escapechar=@,language=SQL]
+DELIMITER //
+CREATE PROCEDURE `f_mustbeenrolled`(OUT return_value TINYINT UNSIGNED)
+BEGIN
+DECLARE EXIT HANDLER FOR SQLEXCEPTION
+BEGIN
+	SET return_value=1;
+END;
+
+IF EXISTS
+	(SELECT * FROM student WHERE id NOT IN (SELECT student_id FROM roster))
+	THEN
+		SET return_value=1
+	ELSE
+		SET return_value=0
+END IF;
+	
+END //
+\end{lstlisting}
+
 \newpage
 
 \begin{figure}[h!]
@@ -949,20 +991,15 @@ Let $S$ be a list of signatures, $s$ is a single signature, $R$ is its contained
 
 \newpage
 
-\subsection{Procedures Generation for Predicates, Facts and Quantifiers}
+\subsection{Procedures Generation for Predicates}
 
 Let $p$ be a predicate, containing its name, its inputs and its body. The body contains the pre- and the post-conditions (operations). $l$ is a line of operation. $i$ is an input. It contains its type, its name and its value.\\
-
-Let $f$ be a fact, containing its name, its variables, and its body. The body contains the invariants. $n$ is an invariant. Each variable $v$ contains its type, its name and its value.\\
-
-Let $c$ be a quantifier
-
 
 \begin{algorithm}
 \caption{Returns the procedures creation query}
 \label{array-sum2}
 \begin{algorithmic}[2]
-\Function{Generate Procedures}{$predicates$, $facts$, $quantifiers$}
+\Function{Generate Predicate Procedures}{$predicates$}
 	\State $query = ""$
 	\For {$p$ in $predicates$}
 	\State \textbf{add} SQL Statement ("CREATE PROCEDURE $p.name$ (list of $p.inputs$)") \textbf{to} $query$
@@ -996,7 +1033,36 @@ Let $c$ be a quantifier
 
 \newpage
 
-\subsection{Procedures Generation for Facts}
+\subsection{Procedures Generation for Invariants}
+
+Let $f$ be a fact, containing its name, its variables, and its body. The body contains the invariants. $n$ is an invariant. Each variable $v$ contains its type, its name and its value.\\
+
+Let $q$ be a quantifier, containing its type and its context.
+
+\begin{algorithm}
+\caption{Returns the procedures creation query}
+\label{array-sum2}
+\begin{algorithmic}[2]
+\Function{Generate Predicate Procedures}{$facts$, $quantifiers$}
+	\State $query = ""$
+	\For {$fq$ in ${facts+quantifiers}$}
+		\Comment Wrap procedures with invariant violation flag modifier
+		\State \textbf{add} SQL Statement ("CREATE PROCEDURE $fq.name$ (OUT $return_value$ TINYINT UNSIGNED) BEGIN DECLARE EXIT HANDLER FOR SQLEXCEPTION BEGIN SET $return_value$=1; END; IF EXISTS (") \textbf{to} $query$
+		\If{$fq$ is $fact$} 
+			\State \textbf{add} SQL Statement ("IF NOT EXISTS INSERT INTO $l.op1$ SET value='$p.varInputs[l.op2]$'") \textbf{to} $query$
+			
+		\ElsIf{$fq$ is $quantifier$} 
+			\If{$fq.type$ is $lone$} \State \textbf{add} SQL Statement ("IF NOT EXISTS INSERT INTO $l.op1$ SET value='$p.varInputs[l.op2]$'") \textbf{to} $query$
+			\ElsIf{$fq$ is $quantifier$} 
+				\State \textbf{add} SQL Statement ("IF EXISTS DELETE FROM $l.op1$ WHERE value='$p.varInputs[l.op2]$'") \textbf{to} $query$
+			\EndIf value='$p.varInputs[l.op2]$'") \textbf{to} $query$
+		\EndIf
+		\State \textbf{add} SQL Statement (") THEN SET $return_value$=1 ELSE SET $return_value$=0 END IF;") \textbf{to} $query$
+	\EndFor
+	\State \textbf{return} $query$
+\EndFunction
+\end{algorithmic}
+\end{algorithm}
 
 \newpage
 
