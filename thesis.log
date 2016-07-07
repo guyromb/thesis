@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.17 (TeX Live 2016) (preloaded format=pdflatex 2016.6.13)  3 JUL 2016 22:49
+This is pdfTeX, Version 3.14159265-2.6-1.40.17 (TeX Live 2016) (preloaded format=pdflatex 2016.6.13)  5 JUL 2016 11:21
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -1503,71 +1503,65 @@ IN SET
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 1051--1052
+Underfull \hbox (badness 10000) in paragraph at lines 1052--1053
 [] \T1/cmr/bx/n/10 add \T1/cmr/m/n/10 SQL State-ment ("IF NOT EX-ISTS IN-SERT I
 NTO $\OML/cmm/m/it/10 l:op\OT1/cmr/m/n/10 1$ \T1/cmr/m/n/10 SET
  []
 
-
-Underfull \hbox (badness 10000) in paragraph at lines 1052--1053
-[] \T1/cmr/bx/n/10 add \T1/cmr/m/n/10 SQL State-ment ("IF EX-ISTS DELETE FROM $
-\OML/cmm/m/it/10 l:op\OT1/cmr/m/n/10 1$ \T1/cmr/m/n/10 WHERE
- []
-
 [32]
-Underfull \hbox (badness 10000) in paragraph at lines 1069--1070
+Underfull \hbox (badness 10000) in paragraph at lines 1085--1086
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 1071--1072
+Underfull \hbox (badness 10000) in paragraph at lines 1087--1088
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 1073--1074
+Underfull \hbox (badness 10000) in paragraph at lines 1089--1090
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 1075--1076
+Underfull \hbox (badness 10000) in paragraph at lines 1091--1092
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 1077--1078
+Underfull \hbox (badness 10000) in paragraph at lines 1093--1094
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 1079--1080
+Underfull \hbox (badness 10000) in paragraph at lines 1095--1096
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 1081--1082
+Underfull \hbox (badness 10000) in paragraph at lines 1097--1098
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 1109--1110
+Underfull \hbox (badness 10000) in paragraph at lines 1125--1126
 
  []
 
 <output_traces.jpg, id=775, 422.57875pt x 153.57375pt>
 File: output_traces.jpg Graphic file (type jpg)
  <use output_traces.jpg>
-Package pdftex.def Info: output_traces.jpg used on input line 1111.
+Package pdftex.def Info: output_traces.jpg used on input line 1127.
 (pdftex.def)             Requested size: 295.8031pt x 107.50089pt.
 
 [33] <scenarios.jpg, id=805, 1060.96375pt x 403.5075pt>
 File: scenarios.jpg Graphic file (type jpg)
  <use scenarios.jpg>
-Package pdftex.def Info: scenarios.jpg used on input line 1125.
+Package pdftex.def Info: scenarios.jpg used on input line 1141.
 (pdftex.def)             Requested size: 265.24028pt x 100.87662pt.
 
 Excluding 'comment' comment.
-Underfull \hbox (badness 10000) in paragraph at lines 1151--1152
+Underfull \hbox (badness 10000) in paragraph at lines 1167--1168
 
  []
 
@@ -1578,17 +1572,17 @@ Chapter 6.
 ]
 Chapter 7.
 
-Underfull \hbox (badness 10000) in paragraph at lines 1180--1181
+Underfull \hbox (badness 10000) in paragraph at lines 1196--1197
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 1182--1183
+Underfull \hbox (badness 10000) in paragraph at lines 1198--1199
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 1184--1185
+Underfull \hbox (badness 10000) in paragraph at lines 1200--1201
 
  []
 
@@ -1601,32 +1595,32 @@ Chapter 8.
 [38
 
 ]
-Overfull \hbox (0.81734pt too wide) in paragraph at lines 1372--1372
+Overfull \hbox (0.81734pt too wide) in paragraph at lines 1388--1388
 []\T1/cmr/m/n/10 R1 ++ R2| 
  []
 
 [39]
-LaTeX Font Info:    Try loading font information for T1+cmtt on input line 1459
+LaTeX Font Info:    Try loading font information for T1+cmtt on input line 1475
 .
  (/usr/local/texlive/2016/texmf-dist/tex/latex/base/t1cmtt.fd
 File: t1cmtt.fd 2014/09/29 v2.5h Standard LaTeX font definitions
 ) [40]
 [41] [42]
-Overfull \hbox (23.96823pt too wide) in paragraph at lines 1675--1683
+Overfull \hbox (23.96823pt too wide) in paragraph at lines 1691--1699
 []  
  []
 
 
-Overfull \hbox (23.96822pt too wide) in paragraph at lines 1690--1698
+Overfull \hbox (23.96822pt too wide) in paragraph at lines 1706--1714
 []  
  []
 
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 1735.
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 1751.
 [43]
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 1735.
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 1751.
  (./thesis.aux)
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 1735.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 1735.
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 1751.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 1751.
 
 Package rerunfilecheck Info: File `thesis.out' has not changed.
 (rerunfilecheck)             Checksum: E8F924BFC5C4C055AC528072BC3179C2;3375.
@@ -1634,13 +1628,13 @@ Package rerunfilecheck Info: File `thesis.out' has not changed.
 
 LaTeX Warning: There were multiply-defined labels.
 
-Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 1735.
+Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 1751.
  ) 
 Here is how much of TeX's memory you used:
- 11574 strings out of 493014
- 160174 string characters out of 6133351
+ 11575 strings out of 493014
+ 160186 string characters out of 6133351
  274863 words of memory out of 5000000
- 14472 multiletter control sequences out of 15000+600000
+ 14473 multiletter control sequences out of 15000+600000
  20697 words of font info for 46 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
  29i,12n,42p,1264b,1744s stack positions out of 5000i,500n,10000p,200000b,80000s
@@ -1667,7 +1661,7 @@ st/fonts/type1/public/cm-super/sfsl1000.pfb></usr/local/texlive/2016/texmf-dist
 /fonts/type1/public/cm-super/sfti1000.pfb></usr/local/texlive/2016/texmf-dist/f
 onts/type1/public/cm-super/sfti1440.pfb></usr/local/texlive/2016/texmf-dist/fon
 ts/type1/public/cm-super/sftt1000.pfb>
-Output written on thesis.pdf (44 pages, 943793 bytes).
+Output written on thesis.pdf (44 pages, 950312 bytes).
 PDF statistics:
  1056 PDF objects out of 1200 (max. 8388607)
  949 compressed objects within 10 object streams

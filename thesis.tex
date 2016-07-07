@@ -1037,7 +1037,7 @@ Let $p$ be a predicate, containing its name, its inputs and its body. The body c
 
 Let $f$ be a fact, containing its name, its variables, and its body. The body contains the invariants. $n$ is an invariant. Each variable $v$ contains its type, its name and its value.\\
 
-Let $q$ be a quantifier, containing its type and its context.
+Let $q$ be a quantifier, containing its type, its context and its restriction domain.
 
 \begin{algorithm}
 \caption{Returns the procedures creation query}
@@ -1052,12 +1052,22 @@ Let $q$ be a quantifier, containing its type and its context.
 			\State \textbf{add} SQL Statement ("IF NOT EXISTS INSERT INTO $l.op1$ SET value='$p.varInputs[l.op2]$'") \textbf{to} $query$
 			
 		\ElsIf{$fq$ is $quantifier$} 
-			\If{$fq.type$ is $lone$} \State \textbf{add} SQL Statement ("IF NOT EXISTS INSERT INTO $l.op1$ SET value='$p.varInputs[l.op2]$'") \textbf{to} $query$
-			\ElsIf{$fq$ is $quantifier$} 
-				\State \textbf{add} SQL Statement ("IF EXISTS DELETE FROM $l.op1$ WHERE value='$p.varInputs[l.op2]$'") \textbf{to} $query$
-			\EndIf value='$p.varInputs[l.op2]$'") \textbf{to} $query$
+		\Comment Context of the quantifier
+			\If{$fq.context$ is $signature$} \State \textbf{extend} SQL Statement ("SELECT * FROM fq.tableName") \textbf{to} $query$
+			\ElsIf{$fq.type$ is $field$} 
+				\State \textbf{extend} SQL Statement ("SELECT * FROM fq.tableName LEFT JOIN fq.field ON fq.fieldId='fq.tableName'.'id'")\textbf{to} $query$
+			\EndIf
+			\Comment Type of the quantifier
+			\If{$fq.type$ is $lone$} \State \textbf{extend} SQL Statement ("HAVING COUNT('id') > 1") \textbf{to} $query$
+			\ElsIf{$fq.type$ is $one$} 
+				\State \State \textbf{extend} SQL Statement ("HAVING COUNT('id') <> 1") \textbf{to} $query$
+			\ElsIf{$fq.type$ is $some$} 
+				\State \State \textbf{extend} SQL Statement ("HAVING COUNT('id') <= 1") \textbf{to} $query$
+			\ElsIf{$fq.type$ is $no$} 
+				\State \State \textbf{extend} SQL Statement ("HAVING COUNT('id') > 0") \textbf{to} $query$
+			\EndIf
 		\EndIf
-		\State \textbf{add} SQL Statement (") THEN SET $return_value$=1 ELSE SET $return_value$=0 END IF;") \textbf{to} $query$
+		\State \textbf{extend} SQL Statement (") THEN SET $return_value$=1 ELSE SET $return_value$=0 END IF;") \textbf{to} $query$
 	\EndFor
 	\State \textbf{return} $query$
 \EndFunction
