@@ -401,7 +401,7 @@ This way, we able to check our model, and make it is more robust minimizing mist
 \newpage
 
 \chapter{Forgery Solution}
-In this chapter we will discuss on the solution that we offer.
+In this chapter we will discuss on the solution that we offer. First we will introduce the key ingredients with few examples, and then we will go into deeper details.
 
 \section{Key Ingredients}
 
@@ -426,7 +426,7 @@ For those specifications Alloy will generate multiple models. Arbitrarily we cho
 \includegraphics[scale=0.6]{overview1}
 \end{center}
 
-The system contains two courses and two student which are enrolled to each of those courses. Also, Student0 is enrolled to Course1, he submitted his work and got a grade for it.\\
+The system contains two courses and two students which are enrolled to each of those courses. E.g. Student0 is enrolled to Course1. Student0 also submitted his work and he was graded for it.\\
 
 First We need to generate a database schema for storing the data. As can be seen, Alloy Signatures can be translated directly into persistent database schemas. In Forgery, for each Signature we create a table, and for each field we create a junction table that points to the relevant signature tables. Each Signature table stores its atoms. The relations are linked by id's which are also the primary keys.\\
 
@@ -454,7 +454,7 @@ CREATE TABLE `roster`(
 
 We use foreign keys to enforce integrity. These constraints guarantee that, for example, a row in the table $roster$ with a field $student\_id$ referencing the $student$ table will never have an $student\_id$ value that does not exist in the $students$ table. In addition, since Alloy refers to sets, according to the set theory, every element of a set must be unique; no two members may be identical. Hence, we create a a SQL unique index.\\
 
-Now when we have a database which we can store data to, we need a way to insert, update or delete data. For example, creating Atoms and implementing Alloy's predicates. For that purpose we decided to use SQL stored procedures. Stored procedures are similar to procedures in other programming languages in that they can accept inputs, return output and support programming statements for performing operations on the database.\\
+Now when we have a database which we can store data in, we need a way to insert, update or delete data. For example, creating Atoms and implementing Alloy's predicates. For that purpose we decided to use SQL stored procedures. Stored procedures are similar to procedures in other programming languages in that they can accept inputs, return output and support programming statements for performing operations on the database.\\
 
 Alloy is based on the notation of algebraic mathematics. Operators over sets and relations have their usual semantics: + (union), \& (intersection), in (subset), $\rightarrow$ (tupling), and . (join). SQL supports simple operands such as +, - and set operations such as union, intersection, difference etc. That gives us enough flexibility to transform Alloy predicates into SQL procedures.\cite{sqlalgebra}\\
 
@@ -498,7 +498,8 @@ It will insert a new row with the value Jonathan to the student table, and anoth
 
 Similarly, $Facts$ are also converted into procedures. $Facts$ don't have inputs, however variables can be defined easily.
 
-The following fact determine that all students must be enrolled to a course.
+The following fact determine that all students must be enrolled to a course. The expression $all$ is a quantifier which defines that the fact applies for all rows. Forgery support multiple quantifiers such as $some$, $one$ and others. We will discuss them later.
+
 \begin{lstlisting}
 fact mustBeEnrolled {
 	all c: Course, s: Student | 
@@ -528,7 +529,7 @@ END IF;
 END //
 \end{lstlisting}
 
-$Facts$ procedures modify the flag $return\_value$ to $1$ or $0$ (logic True or False) which are equivalent to invariant failure or not accordingly. When the data was modified, the procedures are automatically called and in case of a invariant failure, the changes will be reverted to the previous valid state (using transactions).\\
+$Facts$ procedures modify the flag $return\_value$ to $1$ or $0$ (logic True or False) which are equivalent to invariant failure or not accordingly. When the data was modified, the procedures are automatically called and flag is being checked. In case of a invariant violation, the changes will be reverted to the previous valid state (using transactions).\\
 
 \newpage
 
@@ -551,7 +552,7 @@ $Facts$ procedures modify the flag $return\_value$ to $1$ or $0$ (logic True or 
 \caption{Forgery architecture}
 \end{figure}
 
-We implemented \textit{Forgery} using \textit{Rascal}. We chose \textit{Rascal} due to its powerful DSL and AST (Abstract Syntax Trees) tools. Since we used a standard SQL language, any arbitrary database system can be used. We used \textit{MySQL} due to his popularity.
+We implemented \textit{Forgery} using \textit{Rascal}. We chose \textit{Rascal} due to its powerful DSL and AST (Abstract Syntax Trees) tools. Since we used a standard SQL language, any arbitrary database system can be used. We used \textit{MySQL} due to his popularity and the provided set of tools.
 
 \newpage
 
@@ -641,20 +642,32 @@ Every table contains the ids of the atoms that the relation describes. The table
 \noindent Forgery uses stored procedures for the SQL implementation of Quantifiers, Predicates and Facts.
 
 \subsection{Quantifiers}
-\noindent Alloy syntax supports multiple quantifiers to describe constraints on the data model: \textbf{\textit{no}} (zero), \textbf{\textit{lone}} (at most one atom), \textbf{\textit{some}} (at least one atom) and \textbf{\textit{one}} (single atom).\\
+\noindent Alloy syntax supports multiple quantifiers to describe constraints on the data model: \textbf{\textit{no}} (zero), \textbf{\textit{all}} (for all), \textbf{\textit{lone}} (at most one atom), \textbf{\textit{some}} (at least one atom) and \textbf{\textit{one}} (single atom).\\
 
-Quantifiers can be used in multiple places. E.g. expressions, signatures, facts etc.
+Quantifiers can be used in multiple places and might have slightly different context. E.g. expressions, signatures, facts etc.
 For example, the constraint $lone e$ says that the expression $e$ denotes a relation containing at most one tuple. Or $one sig S$, for example, declares S to be a signature whose set contains exactly one element.\\
 
-For each quantifier we create a procedure. Each procedure contains a query that counts the rows and group it based on the quantifier context and then compare it to the specified quantifier definition ($c<=1$, $c==1$, $c>1$, $c==0$).\\
+For each quantifier we create a procedure. Each procedure contains a query that counts the rows and group it based on the quantifier context and then compare it to the specified quantifier definition ($c<=1$, $c==1$, $c>1$, $c==0$, $c(*)$).\\
 
-We implemented quantifiers as invariants. In other words, these procedures are automatically called every time when the database is changed. If any violation occurs, the data will be reverted and error will be shown (transactional action). The quantifier procedures are stored in the database and can be identified with the prefix \textit{q\_}.\\
+We implemented quantifiers (or cardinality constraints) as invariants. In other words, these procedures are automatically called every time when the database is changed. If any violation occurs, the data will be reverted and error will be shown (transactional action). The quantifier procedures are stored in the database and can be identified with the prefix \textit{q\_}.\\
 
-For example, the expression $work:\ roster \rightarrow lone\ Submission$ will be converted to the following procedure:
+The following example applies cardinality constraints on $school$ and $work$.
+
+\begin{lstlisting}
+sig Student {}
+sig Submission {}
+one sig School {}
+sig Course {
+	roster: set Student,
+	work: roster -> lone Submission
+}
+\end{lstlisting}
+
+The expression $work:\ roster \rightarrow lone\ Submission$, which allows at most one submission per student, will be converted to the following procedure:
 
 \begin{lstlisting}[escapechar=@,language=SQL]
 DELIMITER //
-CREATE PROCEDURE `c_work`(OUT return_value tinyint unsigned)
+CREATE PROCEDURE `q_work`(OUT return_value tinyint unsigned)
 BEGIN
 	IF EXISTS (
 		SELECT * FROM `course`
@@ -668,7 +681,7 @@ BEGIN
 END //
 \end{lstlisting}
 
-Or when it comes to context of signatures, e.g. $one\ sig\ School {}$ we generate the following procedure:
+Or when it comes to context of signatures, $one\ sig\ School {}$ (only one school exists in the system) we generate the following procedure:
 
 \begin{lstlisting}[escapechar=@,language=SQL]
 DELIMITER //
@@ -730,7 +743,18 @@ g : Grade) {
 
 \subsubsection{Alloy Predicates}
 
-\noindent Alloy uses \textbf{pred}icates (e.g. Enroll) to capture the actions that are supported in the system. Each predicate describes the required state that the system should be in when applying it. Predicates has a header and a body. \\
+\noindent Alloy uses \textbf{pred}icates (e.g. Enroll) to capture the actions that are supported in the system. Each predicate describes the required state that the system should be in when applying it. Predicates has a header and a body. \\\\
+$predDecl\ ::=\ pred\ name\ [paraDecls]\ block$\\
+$paraDecls\ ::=\ ( decl,*\ )$\\
+$block\ ::=\ { expr* }$\\
+$expr ::= qualName\\
+|\ expr\ [+\ |\ -]\ expr\ |\ expr\ [.\ |\ \rightarrow]\ expr \\
+|\ expr\ [!\ |\ not]\ [in\ |\ =]\ expr\\
+|\ expr\ and\ expr\\
+|\ [all\ |\ no\ |\ lone\ |\ some\ |\ one]\ decl,+ blockOrBar$\\
+$decl\ ::=\ [disj]\ name,+\ :\ [disj]\ expr$\\
+$blockOrBar\ ::=\ block\ |\ bar\ expr\\
+bar ::=\ |$\\
 
 \noindent\underline{Predicates Header:}\\
 
@@ -870,7 +894,17 @@ END //
 
 \subsection{Facts}
 \label{sec:factsgen}
-A $fact$ is a constraint that always holds. Similarly to quantifiers, we use procedures as an implementation for such invariants. Those procedures are called when the database is changed and revert the data in case of failure. This way, we can guarantee that the data always valid. \\
+A $fact$ is a constraint that always holds (that can also be regarded as an assumption). Similarly to quantifiers, we use procedures as an implementation for such invariants. Those procedures are called when the database is changed and revert the data in case of failure. This way, we can guarantee that the data always valid. \\\\
+$factDecl\ ::=\ fact\ [name]\ block$\\
+$block\ ::=\ { expr* }$\\
+$expr ::= qualName\\
+|\ expr\ [.\ |\ \rightarrow]\ expr \\
+|\ expr\ [!\ |\ not]\ [in\ |\ =]\ expr\\
+|\ expr\ and\ expr\\
+|\ [all\ |\ no\ |\ lone\ |\ some\ |\ one]\ decl,+ blockOrBar$\\
+$decl\ ::=\ [disj]\ name,+\ :\ [disj]\ expr$\\
+$blockOrBar\ ::=\ block\ |\ bar\ expr\\
+bar ::=\ |$\\
 
 A fact consist of a name and the constraint, which is given as a block of algebraic sequence (written like in predicates, see operators in the previous section). We can also define variables and quantifiers criteria. E.g. The constraint $one\ x:\ S | F$ says that there is exactly one x that satisfies the constraint F.\\
 
@@ -926,11 +960,11 @@ END //
 \subsection{Scheme Generation}
 
 The scheme is generated based on the signatures, fields and quantifiers.\\
-
 Let $S$ be a list of signatures, $s$ is a single signature, $R$ is its contained relations, $r$ is a single relation.\\
 
 \begin{algorithm}
-\caption{Database scheme mapper}
+\caption{Returns the database structure}
+
 \label{array-sum0}
 \begin{algorithmic}[1]
 \Function{Create Scheme}{$S$}
@@ -950,10 +984,7 @@ Let $S$ be a list of signatures, $s$ is a single signature, $R$ is its contained
 	\State \textbf{return} $tables$
 \EndFunction
 \end{algorithmic}
-\end{algorithm}
 
-\begin{algorithm}
-\caption{Returns the signature atoms tables}
 \label{array-sum1}
 \begin{algorithmic}[1]
 \Function{Atomic Fields}{$r,tables,S$}
@@ -963,11 +994,8 @@ Let $S$ be a list of signatures, $s$ is a single signature, $R$ is its contained
 			\State \textbf{return} $tables[r.name]$
 \EndFunction
 \end{algorithmic}
-\end{algorithm}
 
-\begin{algorithm}
-\caption{Returns the query}
-\label{array-sum1}
+\label{array-sum2}
 \begin{algorithmic}[1]
 \Function{Generate Query}{$tables$}
 	\State $query = ""$
@@ -987,6 +1015,7 @@ Let $S$ be a list of signatures, $s$ is a single signature, $R$ is its contained
 			\State \textbf{return} $query$
 \EndFunction
 \end{algorithmic}
+
 \end{algorithm}
 
 \newpage
@@ -994,11 +1023,10 @@ Let $S$ be a list of signatures, $s$ is a single signature, $R$ is its contained
 \subsection{Procedures Generation for Predicates}
 
 Let $p$ be a predicate, containing its name, its inputs and its body. The body contains the pre- and the post-conditions (operations). $l$ is a line of operation. $i$ is an input. It contains its type, its name and its value.\\
-
 \begin{algorithm}
 \caption{Returns the procedures creation query}
-\label{array-sum2}
-\begin{algorithmic}[2]
+\label{array-sum3}
+\begin{algorithmic}[1]
 \Function{Generate Predicate Procedures}{$predicates$}
 	\State $query = ""$
 	\For {$p$ in $predicates$}
@@ -1021,6 +1049,8 @@ Let $p$ be a predicate, containing its name, its inputs and its body. The body c
 			
 			\ElsIf{$l.algebraicOperation$ is $=$} \State \textbf{add} SQL Statement ("IF (CHECKSUM TABLE $l.op1$, $l.op2$) IS NULL THEN (SELECT 'precondition violated'; ROLLBACK);") \textbf{to} $query$
 			
+			\ElsIf{$l.algebraicOperation$ is $!=$} \State \textbf{add} SQL Statement ("IF (CHECKSUM TABLE $l.op1$, $l.op2$) IS NOT NULL THEN (SELECT 'precondition violated'; ROLLBACK);") \textbf{to} $query$
+			
 			\EndIf
 		\EndFor
 
@@ -1036,39 +1066,65 @@ Let $p$ be a predicate, containing its name, its inputs and its body. The body c
 \subsection{Procedures Generation for Invariants}
 
 Let $f$ be a fact, containing its name, its variables, and its body. The body contains the invariants. $n$ is an invariant. Each variable $v$ contains its type, its name and its value.\\
-
-Let $q$ be a quantifier, containing its type, its context and its restriction domain.
+Let $q$ be a quantifier, containing its type, its context and its restriction domain properties.
 
 \begin{algorithm}
-\caption{Returns the procedures creation query}
-\label{array-sum2}
-\begin{algorithmic}[2]
-\Function{Generate Predicate Procedures}{$facts$, $quantifiers$}
+\caption{Returns the invariant procedures creator query}
+\label{array-sum4}
+\begin{algorithmic}[1]
+\Function{Generate Invariant Procedures}{$facts$, $quantifiers$}
 	\State $query = ""$
 	\For {$fq$ in ${facts+quantifiers}$}
 		\Comment Wrap procedures with invariant violation flag modifier
 		\State \textbf{add} SQL Statement ("CREATE PROCEDURE $fq.name$ (OUT $return_value$ TINYINT UNSIGNED) BEGIN DECLARE EXIT HANDLER FOR SQLEXCEPTION BEGIN SET $return_value$=1; END; IF EXISTS (") \textbf{to} $query$
 		\If{$fq$ is $fact$} 
-			\State \textbf{add} SQL Statement ("IF NOT EXISTS INSERT INTO $l.op1$ SET value='$p.varInputs[l.op2]$'") \textbf{to} $query$
+			\For {$l$ in $fq.body$} \Comment Operations over tables
+				\State $tmpQuery = ""$
+				\State \textbf{l = Simplify tuples and joins (l)}
+				\If{$l.algebraicOperation$ is $in$} \State \textbf{add} SQL Statement ("SELECT * FROM $l.op2$ WHERE id NOT IN (SELECT ${l.op2}_id$ FROM $l.op1$)'") \textbf{to} $tmpQuery$
+			
+				\ElsIf{$l.algebraicOperation$ is $not in$} \State \textbf{add} SQL Statement ("SELECT * FROM $l.op2$ WHERE id IN (SELECT ${l.op2}_id$ FROM $l.op1$)'") \textbf{to} $tmpQuery$
+			
+				\ElsIf{$l.algebraicOperation$ is $=$} \State \textbf{add} SQL Statement ("(CHECKSUM TABLE $l.op1$, $l.op2$) IS NULL") \textbf{to} $tmpQuery$
+				
+				\ElsIf{$l.algebraicOperation$ is $!=$} \State \textbf{add} SQL Statement ("(CHECKSUM TABLE $l.op1$, $l.op2$) IS NOT NULL") \textbf{to} $tmpQuery$
+			
+				\EndIf
+			\EndFor
+			\If{$fq.variables$} \State \textbf{extend} SQL Statement ("SELECT * FROM (tmpQuery)") \textbf{to} $query$
+			\State $query+=$ \textbf{Generate Quantifiers (fq)}
+			\Else
+				\State $query+=$ tmpQuery
+			\EndIf
 			
 		\ElsIf{$fq$ is $quantifier$} 
 		\Comment Context of the quantifier
 			\If{$fq.context$ is $signature$} \State \textbf{extend} SQL Statement ("SELECT * FROM fq.tableName") \textbf{to} $query$
 			\ElsIf{$fq.type$ is $field$} 
-				\State \textbf{extend} SQL Statement ("SELECT * FROM fq.tableName LEFT JOIN fq.field ON fq.fieldId='fq.tableName'.'id'")\textbf{to} $query$
+				\State \textbf{extend} SQL Statement ("SELECT * FROM fq.tableName LEFT JOIN fq.field ON fq.fieldId='fq.tableName'.'id' GROUP BY fq.tableFields")\textbf{to} $query$
 			\EndIf
-			\Comment Type of the quantifier
-			\If{$fq.type$ is $lone$} \State \textbf{extend} SQL Statement ("HAVING COUNT('id') > 1") \textbf{to} $query$
-			\ElsIf{$fq.type$ is $one$} 
-				\State \State \textbf{extend} SQL Statement ("HAVING COUNT('id') <> 1") \textbf{to} $query$
-			\ElsIf{$fq.type$ is $some$} 
-				\State \State \textbf{extend} SQL Statement ("HAVING COUNT('id') <= 1") \textbf{to} $query$
-			\ElsIf{$fq.type$ is $no$} 
-				\State \State \textbf{extend} SQL Statement ("HAVING COUNT('id') > 0") \textbf{to} $query$
-			\EndIf
+			\State $query+=$ \textbf{Generate Quantifiers (fq)}
 		\EndIf
 		\State \textbf{extend} SQL Statement (") THEN SET $return_value$=1 ELSE SET $return_value$=0 END IF;") \textbf{to} $query$
 	\EndFor
+	\State \textbf{return} $query$
+\EndFunction
+\end{algorithmic}
+
+\label{array-sum5}
+\begin{algorithmic}[1]
+\Function{Generate Quantifiers}{$q$}
+	\State $query = ""$
+	\If{$q.type$ is $lone$} \State \textbf{extend} SQL Statement ("HAVING COUNT('id') > 1") \textbf{to} $query$
+	\ElsIf{$q.type$ is $one$} 
+		\State \textbf{extend} SQL Statement ("HAVING COUNT('id') <> 1") \textbf{to} $query$
+	\ElsIf{$q.type$ is $some$} 
+		\State \textbf{extend} SQL Statement ("HAVING COUNT('id') <= 1") \textbf{to} $query$
+	\ElsIf{$q.type$ is $no$} 
+		\State \textbf{extend} SQL Statement ("HAVING COUNT('id') > 0") \textbf{to} $query$
+	\ElsIf{$q.type$ is $all$} 
+		\State \textbf{extend} SQL Statement ("HAVING COUNT('id') == c(*)") \textbf{to} $query$
+	\EndIf
 	\State \textbf{return} $query$
 \EndFunction
 \end{algorithmic}
@@ -1080,21 +1136,14 @@ Let $q$ be a quantifier, containing its type, its context and its restriction do
 \label{sec:evaluation}
 
 \subsection{Reverse Engineering}
-When \textit{Alloy} simulates a model, it generates traces and saves them as a temporary XML file. Those traces describe the data history of the system and the transition between them. 
-
-The idea was to use those traces to imitate the same behavior in our generated database system. In other words, use the same initial data, and follow the same operations that Alloy did. Then, we are able to compare the results of Forgery to those in \textit{Alloy}.\\
-
-We use this reverse engineering technique to make sure our solution is consistent to \textit{Alloy} behavior and evaluates our system that way.\\
-
-However, we found that the traces miss some important information.\\ 
-
-By default, the traces are not ordered and this has to be configured manually. Otherwise, the traces are useless because we cannot identify the order of the operations and imitate them. To enable ordering in Alloy, the ordering library has to be included and initialized using a predicate named $init$. Moreover, the logic behind the transition from one step to another has to be defined. It can be done using a fact named $traces$.\\ 
-
-Besides, although we can now have an ordered list of the data history, we unable to identify which predicates were used. It means that we cannot sure which operation to use to imitate the transition between the different steps. In order to deal with it we used a small trick. We added an arbitrary atom called $operation_id$ so Alloy will create traces for it. This atom identifies each operation. On each step we use the traces of this identifier to know what operation was used.\\
-
-Forgery ignores the predicate $init$, the fact $traces$ and the field $operation_id$ as they are not relevant for generating the database system.\\
-
-In the following example we added the mentioned tweaks, so we able to generate the correct traces. The code is included, and later the data flow is explained briefly.\\
+When \textit{Alloy} simulates a model, it generates traces and saves them as a temporary XML file. Those traces describe the data history of the system and the transition between them.\\\\
+The idea was to use those traces to imitate the same behavior in our generated database system. In other words, use the same initial data, and follow the same operations that Alloy did. Then, we are able to compare the results of Forgery to those in \textit{Alloy}.\\\\
+We use this reverse engineering technique to make sure our solution is consistent to \textit{Alloy} behavior and evaluates our system that way.\\\\
+However, we found that the traces miss some important information.\\\\
+By default, the traces are not ordered and this has to be configured manually. Otherwise, the traces are useless because we cannot identify the order of the operations and imitate them. To enable ordering in Alloy, the ordering library has to be included and initialized using a predicate named $init$. Moreover, the logic behind the transition from one step to another has to be defined. It can be done using a fact named $traces$.\\\\
+Besides, although we can now have an ordered list of the data history, we unable to identify which predicates were used. It means that we cannot sure which operation to use to imitate the transition between the different steps. In order to deal with it we used a small hack. We added an arbitrary atom called $operation\_id$ so Alloy will create traces for it. This atom identifies each operation. On each step we use the traces of this identifier to know what operation was used.\\\\
+Forgery ignores the predicate $init$, the fact $traces$ and the field $operation\_id$ as they are not relevant for generating the database system.\\\\
+In the following example we added the mentioned tweaks, so we are able to generate the correct traces. The code is included, and later the data flow is explained briefly.\\
 
 \begin{lstlisting}
 open util/ordering[Course] as CourseOrder
@@ -1121,7 +1170,7 @@ fact traces{
 	Enroll[c,c',st]
 }
 \end{lstlisting}
-
+\newpage
 \textit{Alloy's} output:\\
 \begin{center}
 \includegraphics[scale=0.7]{output_traces}
@@ -1166,7 +1215,7 @@ For those two cases, we iterate over all the correct \textit{Alloy} models. And 
 
 For those two cases, we use the assertions results (counter-example traces) and imitate each step in Forgery as described before.\\
 
-Simulating those four scenarios in Forgery for different inputs will support us finding bugs in Forgery, and fix them so it will better matched to Alloy's behavior.
+Simulating those four scenarios in Forgery for different inputs will support us finding bugs in Forgery, and fix them so it will better matched to Alloy's behavior. Currently, the process itself is not fully automatic, however, we used multiple inputs and compared them in order to cover as many scenarios as possible.
 
 \newpage
 
@@ -1193,13 +1242,13 @@ In this paper we demonstrate the subtlety of representing state in Alloy speci- 
 
 \chapter{Conclusions}
 
-In this work we presented \textit{Forgery} as a tool that supports the realization of \textit{Alloy} based specifications. We able to generate a full-scale database including structural tables, constraints and functions for data updating operations. The output is a pure SQL that doesn't require any external API or additional dependencies. In addition, it is easily expandable by using different SQL features. For example it is possible to manage privileges of users and that way increasing security.\\ 
+In this work we presented \textit{Forgery} as a tool that supports the realization of \textit{Alloy}-based specifications. We were able to generate a full-scale database including structural tables, constraints and functions for operations over data. The output is a pure SQL that doesn't require any external API or additional dependencies. In addition, it is easily expandable by using different SQL features. For example, it is possible to manage privileges of users and that way increasing security.\\ 
 
-As mentioned before, it is not possible to develop fault-free software in practical scenario considering human nature \cite{reliability}. That also applies for \textit{Forgery}. Hence, we developed a validation mechanism with reverse engineering that allows to compare the results to those in \textit{Alloy}. Moreover, enabling Assertions helps to find issues in the model; A feature that was not possible in Alchemy.\\
+As mentioned before, it is not possible to develop fault-free software in practical scenario considering human nature \cite{reliability}. That also applies for \textit{Forgery}. Hence, we developed a validation mechanism with reverse engineering that allows us to compare the results to those in \textit{Alloy}. Moreover, enabling Assertions helps to find issues in the model; A feature that was not available in other related work like $Alchemy$.\\
 
-Together with \textit{Fors} we created a toolchain that supports the main software development processes: modelling and implementation. Those two important processes have direct affect on the software quality. By improving them organizations might save lot of money and other resources.\\
+Together with \textit{Fors} we created a toolchain that supports the main software development processes: modelling and implementation. Those two important processes have direct affect on the software quality. By improving them organizations might save lot of money or other resources.\\
 
-There are still challenges to be solved in \textit{Forgery},for instance, expanding the set of supported \textit{Alloy} syntax and resolving potential exceptions. However, to the best of our knowledge, considering multiple scenarios, \textit{Forgery} has achieved his goals. 
+There are still challenges to be solved in \textit{Forgery}, for instance, expanding the set of supported \textit{Alloy} syntax and resolving potential exceptions. Especially by continuing the development of the assertions and the reverse engineering system. However, to the best of our knowledge, considering multiple scenarios, \textit{Forgery} has achieved his main purpose. 
 
 \begin{thebibliography}{9}
 
