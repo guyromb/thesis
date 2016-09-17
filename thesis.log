@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.17 (TeX Live 2016) (preloaded format=pdflatex 2016.6.13)  20 JUL 2016 17:04
+This is pdfTeX, Version 3.14159265-2.6-1.40.17 (TeX Live 2016) (preloaded format=pdflatex 2016.6.13)  17 SEP 2016 16:54
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -945,13 +945,13 @@ Package pdftex.def Info: logo-uva.png used on input line 36.
 <ING.png, id=210, 803.0pt x 203.76125pt>
 File: ING.png Graphic file (type png)
  <use ING.png>
-Package pdftex.def Info: ING.png used on input line 50.
+Package pdftex.def Info: ING.png used on input line 51.
 (pdftex.def)             Requested size: 69.13744pt x 17.54178pt.
 
 <CWIlogo.png, id=212, 223.91655pt x 92.5056pt>
 File: CWIlogo.png Graphic file (type png)
  <use CWIlogo.png>
-Package pdftex.def Info: CWIlogo.png used on input line 51.
+Package pdftex.def Info: CWIlogo.png used on input line 52.
 (pdftex.def)             Requested size: 69.13744pt x 28.5621pt.
  [1
 
@@ -981,12 +981,12 @@ l.47 ...r}{\numberline {8}Appendix}{39}{chapter.8}
  [2]
 Chapter 1.
 
-Underfull \hbox (badness 10000) in paragraph at lines 63--64
+Underfull \hbox (badness 10000) in paragraph at lines 64--65
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 65--66
+Underfull \hbox (badness 10000) in paragraph at lines 66--67
 
  []
 
@@ -995,17 +995,17 @@ Excluding 'comment' comment. [3
 ]
 Chapter 2.
 
-Underfull \hbox (badness 10000) in paragraph at lines 92--93
+Underfull \hbox (badness 10000) in paragraph at lines 93--94
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 94--95
+Underfull \hbox (badness 10000) in paragraph at lines 95--96
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 96--97
+Underfull \hbox (badness 10000) in paragraph at lines 97--98
 
  []
 
@@ -1014,89 +1014,89 @@ Underfull \hbox (badness 10000) in paragraph at lines 96--97
 ]
 Chapter 3.
 
-Underfull \hbox (badness 10000) in paragraph at lines 105--106
+Underfull \hbox (badness 10000) in paragraph at lines 106--107
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 107--108
+Underfull \hbox (badness 10000) in paragraph at lines 108--109
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 109--110
+Underfull \hbox (badness 10000) in paragraph at lines 110--111
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 111--112
+Underfull \hbox (badness 10000) in paragraph at lines 112--113
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 113--114
+Underfull \hbox (badness 10000) in paragraph at lines 114--115
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 115--116
+Underfull \hbox (badness 10000) in paragraph at lines 116--117
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 117--118
+Underfull \hbox (badness 10000) in paragraph at lines 118--119
 
  []
 
 [5
 
 ]
-Underfull \hbox (badness 10000) in paragraph at lines 119--120
+Underfull \hbox (badness 10000) in paragraph at lines 120--121
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 128--129
+Underfull \hbox (badness 10000) in paragraph at lines 129--130
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 130--131
+Underfull \hbox (badness 10000) in paragraph at lines 131--132
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 139--141
+Underfull \hbox (badness 10000) in paragraph at lines 140--142
 
  []
 
 <table1.jpg, id=324, 389.0535pt x 79.497pt>
 File: table1.jpg Graphic file (type jpg)
  <use table1.jpg>
-Package pdftex.def Info: table1.jpg used on input line 145.
+Package pdftex.def Info: table1.jpg used on input line 146.
 (pdftex.def)             Requested size: 350.1449pt x 71.54663pt.
 
-Underfull \hbox (badness 10000) in paragraph at lines 148--149
+Underfull \hbox (badness 10000) in paragraph at lines 149--150
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 150--151
+Underfull \hbox (badness 10000) in paragraph at lines 151--152
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 152--153
+Underfull \hbox (badness 10000) in paragraph at lines 153--154
 
  []
 
 [6 <./table1.jpg>] Excluding 'comment' comment.
-Underfull \hbox (badness 10000) in paragraph at lines 172--173
+Underfull \hbox (badness 10000) in paragraph at lines 173--174
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 174--178
+Underfull \hbox (badness 10000) in paragraph at lines 175--179
 
  []
 
@@ -1104,20 +1104,20 @@ Underfull \hbox (badness 10000) in paragraph at lines 174--178
 File: relational_database.png Graphic file (type png)
 
 <use relational_database.png>
-Package pdftex.def Info: relational_database.png used on input line 181.
+Package pdftex.def Info: relational_database.png used on input line 182.
 (pdftex.def)             Requested size: 345.69667pt x 161.60617pt.
 
-Underfull \hbox (badness 10000) in paragraph at lines 183--184
+Underfull \hbox (badness 10000) in paragraph at lines 184--185
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 185--186
+Underfull \hbox (badness 10000) in paragraph at lines 186--187
 
  []
 
 Excluding 'comment' comment. [7 <./relational_database.png>]
-Underfull \hbox (badness 10000) in paragraph at lines 202--203
+Underfull \hbox (badness 10000) in paragraph at lines 203--204
 
  []
 
@@ -1620,7 +1620,7 @@ Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 1800.
 Here is how much of TeX's memory you used:
  11595 strings out of 493014
  160462 string characters out of 6133351
- 275991 words of memory out of 5000000
+ 275959 words of memory out of 5000000
  14486 multiletter control sequences out of 15000+600000
  20697 words of font info for 46 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
@@ -1648,7 +1648,7 @@ st/fonts/type1/public/cm-super/sfsl1000.pfb></usr/local/texlive/2016/texmf-dist
 /fonts/type1/public/cm-super/sfti1000.pfb></usr/local/texlive/2016/texmf-dist/f
 onts/type1/public/cm-super/sfti1440.pfb></usr/local/texlive/2016/texmf-dist/fon
 ts/type1/public/cm-super/sftt1000.pfb>
-Output written on thesis.pdf (45 pages, 951606 bytes).
+Output written on thesis.pdf (45 pages, 1048982 bytes).
 PDF statistics:
  1067 PDF objects out of 1200 (max. 8388607)
  959 compressed objects within 10 object streams

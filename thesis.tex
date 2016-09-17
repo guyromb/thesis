@@ -38,7 +38,8 @@
 	\vspace{2mm}
 	{\scshape\Large Master Thesis Project\par}
 	\vspace{1.5cm}
-	{\Huge\bfseries Forgery: Synthesizing Database Transactions\par}
+	{\Huge\bfseries Forgery\par}
+	{\huge\bfseries Databases Generation and Transactions Synthesizing based on Alloy models\par}
 	\vspace{1cm}
 	{\Large\itshape Guy - Sean Rombaut\par}
 	\vfill
@@ -203,7 +204,6 @@ Although \textit{Alloy} relations and database tables are both based on the theo
 
 \begin{itemize}
 	\item Database tables are two-dimensional, while relations can have multiple dimensions.
-	\item Database tables are ordered (top-bottom and left-right), while relations are not.
 	\item Database tables can contain empty data (null) and duplicates, while relations/tuples can not.
 	\item In database tables, type names are usually omitted, relations usually involve a type name.
 \end{itemize}
@@ -436,7 +436,7 @@ For example, the $student$ table is created by the following SQL code:
 CREATE TABLE `student`(
         `id` INT(6) UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
         `value` VARCHAR(100) NULL
-) ENGINE=InnoDB DEFAULT CHARSET=UTF8;
+);
 \end{lstlisting}
 
 The relation $roster$ will result in a junction table that is created by the following SQL code:
@@ -449,7 +449,7 @@ CREATE TABLE `roster`(
         UNIQUE INDEX ui(`course_id`,`student_id`),
         FOREIGN KEY (`course_id`) REFERENCES `course`(`id`),
         FOREIGN KEY (`student_id`) REFERENCES `student`(`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=UTF8;
+);
 \end{lstlisting}
 
 We use foreign keys to enforce integrity. These constraints guarantee that, for example, a row in the table $roster$ with a field $student\_id$ referencing the $student$ table will never have an $student\_id$ value that does not exist in the $students$ table. In addition, since Alloy refers to sets, according to the set theory, every element of a set must be unique; no two members may be identical. Hence, we create a a SQL unique index.\\
