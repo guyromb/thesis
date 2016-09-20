@@ -44,6 +44,7 @@
 \contentsline {section}{\numberline {6.3}Mapping between Alloy specifications and database implementations}{36}{section.6.3}
 \contentsline {section}{\numberline {6.4}Towards an Operational Semantics for Alloy}{36}{section.6.4}
 \contentsline {chapter}{\numberline {7}Conclusions}{37}{chapter.7}
+\contentsline {chapter}{Bibliography}{38}{chapter*.6}
 \contentsline {chapter}{\numberline {8}Appendix}{39}{chapter.8}
 \contentsline {section}{\numberline {8.1}Alloy Quick Reference}{39}{section.8.1}
 \contentsline {subsection}{\numberline {8.1.1}Logic}{39}{subsection.8.1.1}

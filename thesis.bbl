@@ -1,0 +1,74 @@
+\providecommand{\bysame}{\leavevmode\hbox to3em{\hrulefill}\thinspace}
+\providecommand{\MR}{\relax\ifhmode\unskip\space\fi MR }
+% \MRhref is called by the amsart/book/proc definition of \MR.
+\providecommand{\MRhref}[2]{%
+  \href{http://www.ams.org/mathscinet-getitem?mr=#1}{#2}
+}
+\providecommand{\href}[2]{#2}
+\begin{thebibliography}{10}
+
+\bibitem{minimizingdefects}
+Khaleel Ahmad and Nitasha Varshney, \emph{On minimizing software defects during
+  new product development using enhanced preventive approach}, IJSCE \textbf{2}
+  (2012), no.~5, 9--12.
+
+\bibitem{defectstopten}
+Barry Boehm and Victor~R. Basili, \emph{Software defect reduction top 10 list},
+  IEEE Computer \textbf{34} (2001), no.~1, 135--137.
+
+\bibitem{datastruct}
+Michael Brackett, \emph{Data architecture and data structures}, DATAVERSITY,
+  2013.
+
+\bibitem{introtodb}
+Christopher~J. Date, \emph{An introduction to database systems}, Pearson, 2003.
+
+\bibitem{alloy-manual}
+Daniel Jackson, \emph{Micromodels of software: lightweight modelling and
+  analysis with alloy}, MIT, 2002.
+
+\bibitem{abstractions}
+\bysame, \emph{Software abstractions: Logic, language and analysis}, revised
+  ed., The MIT Press, 2012.
+
+\bibitem{lightning}
+Pierre~Kelsen Loic~Gammaitoni and Fabien Mathey, \emph{Verifying modelling
+  languages using lightning: a case study}, University of Luxembourg (2014),
+  19--28.
+
+\bibitem{sqlalgebra}
+T.~M. Murali, \emph{Software defect reduction top 10 list}, VirginiaTech
+  Engineering (2010), 1--43.
+
+\bibitem{reliability}
+Ajeet~Kumar Pandey and Neeraj~Kumar Goyal, \emph{Early software reliability
+  prediction: A fuzzy logic approach}, Springer Publishing Company, 2013.
+
+\bibitem{when}
+Tony Patton, \emph{Determine when to use stored procedures vs. sql in the
+  code}, TechRepublic (2005), 1.
+
+\bibitem{fors}
+Chiel Peters, \emph{Fors: Separating configuration from formal specification},
+  Master's thesis, University of Amsterdam, 2014, pp.~1--3.
+
+\bibitem{security}
+Sushil Ja~jodia Sabrina De Capitani~di Vimercati, Pierangela~Samarati,
+  \emph{Database security*}, Wiley (2002), 1--6.
+
+\bibitem{requirements}
+Pete Sawyer and Gerald Kotonya, \emph{Software requirements}, IEEE (2001),
+  no.~1.0, 1--2.
+
+\bibitem{alloytutorial}
+Rob Seater and Greg Dennis, \emph{Tutorial for alloy analyzer 4.0}, MIT (2014).
+
+\bibitem{alchemy}
+Kathi~Fisler Shriram~Krishnamurthi, Daniel J.~Dougherty and Daniel Yoo,
+  \emph{Alchemy: Transmuting base alloy specifications into implementations},
+  FSE (2008), 1--12.
+
+\bibitem{dsl}
+Walid Taha, \emph{Domain-specific languages}, Rice University (2008), 1--3.
+
+\end{thebibliography}

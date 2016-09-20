@@ -14,6 +14,7 @@
 \usepackage[T3,T1]{fontenc}
 \usepackage[english]{babel}
 \usepackage[noenc]{tipa}
+\usepackage[nottoc,notlof,notlot]{tocbibind}
 \usepackage{tipx}
 \usepackage{amssymb,amsfonts,textcomp}
 \usepackage{array}
@@ -1250,75 +1251,9 @@ Together with \textit{Fors} we created a toolchain that supports the main softwa
 
 There are still challenges to be solved in \textit{Forgery}, for instance, expanding the set of supported \textit{Alloy} syntax and resolving potential exceptions. Especially by continuing the development of the assertions and the reverse engineering system. However, to the best of our knowledge, considering multiple scenarios, \textit{Forgery} has achieved his main purpose. 
 
-\begin{thebibliography}{9}
-
-\bibitem{requirements}
-  Pete Sawyer and Gerald Kotonya, 
-  \emph{Software Requirements} (IEEE, 2001).
-  
-\bibitem{dsl}
-  Walid Taha, 
-  \emph{Domain-Specific Languages} (Rice University, 2008).
-  
-\bibitem{fors}
-  Chiel Peters, 
-  \emph{Fors: Separating Configuration From Formal Specification} (University of Amsterdam, 2014).
-  
-\bibitem{alchemy}
-  Daniel J. Dougherty et al, 
-  \emph{Alchemy: Transmuting Base Alloy Specifications
-into Implementations} (Worcester, 2008).
-
-\bibitem{abstractions}
-  Daniel Jackson, 
-  \emph{Software Abstractions: Logic, Language and Analysis} (MIT, 2012).
-  
-\bibitem{security}
-  Sabrina De Capitani et al, 
-  \emph{Database Security} (Wiley, 2002).
-  
-\bibitem{lightning}
-  Loic Gammaitoni et al, 
-  \emph{Verifying Modelling Languages using Lightning} (University of Luxembourg, 2014).
-
-\bibitem{reliability}
-  Ajeet Kumar et al, 
-  \emph{Early Software Reliability Prediction: A Fuzzy Logic Approach} (Springer, 2013).
-  
-\bibitem{alloytutorial}
-  Rob Seater and Greg Dennis, 
-  \emph{Tutorial for Alloy Analyzer 4.0} (MIT, 2014).
-  
-\bibitem{defectstopten}
-  Barry Boehm and Victor R. Basili, 
-  \emph{Software Defect Reduction Top 10 List} (IEEE, 2001).
-  
-\bibitem{when}
-  Tony Patton, 
-  \emph{Determine when to use stored procedures vs. SQL in the code} (TechRepublic, 2005).  
-  
-\bibitem{sqlalgebra}
-  T. M. Murali, 
-  \emph{SQL and Relational Algebra} (VirginiaTech Engineering College, 2010).   
-  
-\bibitem{minimizingdefects}
-  Khaleel Ahmad and Nitasha Varshney, 
-  \emph{On Minimizing Software Defects during New Product Development Using Enhanced Preventive Approach} (IJSCE, 2012).
-
-\bibitem{alloy-manual}
-  Daniel Jackson, 
-  \emph{Micromodels of software: lightweight modelling and analysis with Alloy} (MIT, 2002).
-
-\bibitem{datastruct}
-  Michael Brackett, 
-  \emph{Data Architecture and Data Structures} (DATAVERSITY, 2013).  
- 
-\bibitem{introtodb}
-  Christopher J. Date, 
-  \emph{An Introduction to Database Systems} (Pearson, 2003).  
-
-
-\end{thebibliography}
+\nocite{*}
+\bibliographystyle{amsplain}
+\bibliography{mybib}
 
 \chapter{Appendix}
 \section{Alloy Quick Reference}
