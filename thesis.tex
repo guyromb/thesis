@@ -959,9 +959,10 @@ END //
 \label{sec:algorithm}
 
 \subsection{Scheme Generation}
-
+This algorithm generates a SQL code that represents a database schema creation. For each atom we generate a table that contains a pair of identifier and value. For each signature we create a junction table. Each of those junction tables contain fields that points to the relevant atom (using identifiers) based on relations. Since the relations can be recursive (points to another relation) we flatten them so they will point directly to atoms. In addition, we create foreign keys for those pointers and define the identifiers as primary keys.
+\\\\
 The scheme is generated based on the signatures, fields and quantifiers.\\
-Let $S$ be a list of signatures, $s$ is a single signature, $R$ is its contained relations, $r$ is a single relation.\\
+Let $S$ be a list of signatures, $s$ is a single signature, $R$ is its contained relations, $r$ is a single relation.
 
 \begin{algorithm}
 \caption{Returns the database structure}
@@ -1022,7 +1023,10 @@ Let $S$ be a list of signatures, $s$ is a single signature, $R$ is its contained
 \newpage
 
 \subsection{Procedures Generation for Predicates}
-
+This algorithm generates a SQL code that represents procedures creation for predicates. Each procedure we wrap with an exception thrower that performs a rollback operation in case of failure in the state changes. For each input of a predicate we check whether it is an identifier or it refers to a new atom. If it refers to a new atom then we insert it to its relevant table and extract its new identifier. 
+\\\\
+Then we process the body of the predicate, which is a list of algebraic operations. We simplify it to joins and flatten structure. We convert the supported Alloy subset into its equivalent SQL syntax. When it comes to post-condition, each operation can be insert or delete. With pre-conditions we check if the condition exists (e.g. the atom exists or not), and in case such condition violated we revert the changes and stop the execution. 
+\\\\
 Let $p$ be a predicate, containing its name, its inputs and its body. The body contains the pre- and the post-conditions (operations). $l$ is a line of operation. $i$ is an input. It contains its type, its name and its value.\\
 \begin{algorithm}
 \caption{Returns the procedures creation query}
@@ -1066,6 +1070,9 @@ Let $p$ be a predicate, containing its name, its inputs and its body. The body c
 
 \subsection{Procedures Generation for Invariants}
 
+This algorithm generates a SQL code that represents procedures creation for invariants. There are two types of invariants that we generate here: facts and quantifiers. Each procedure we wrap with a flag modifier that indicates whether the system is in a valid state or not. When the flag indicates of a violation the transacted operations will rollback. Each fact contains a list of conditions which we check similarly to post-conditions in predicates (see previous section).\\
+In addition, for each quantifier we count the relevant rows in the table and check if it is valid according to the specified quantifier definition.
+\\\\
 Let $f$ be a fact, containing its name, its variables, and its body. The body contains the invariants. $n$ is an invariant. Each variable $v$ contains its type, its name and its value.\\
 Let $q$ be a quantifier, containing its type, its context and its restriction domain properties.
 
@@ -1225,19 +1232,22 @@ Simulating those four scenarios in Forgery for different inputs will support us 
 Alloy is increasingly becoming a popular declarative modeling language. It is powerful by providing early error detection, supported by analysis tools for simulating and debugging models \cite{lightning}. There were few related papers that were written about Alloy.
 
 \section{From UML to Alloy and Back Again}
-This paper presents a study involving UML2Alloy, a tool for transforming
-UML models in form of UML class diagrams which are augmented with
-OCL constraints, to Alloy. The conversion allows analysis of UML models
-via Alloy, to identify consistencies in those UML models.
+This paper presents a tool for transforming
+UML models (diagrams) to Alloy and vice versa. Basically, few techniques which are presented here can be used in our research of transforming Alloy into SQL. For example, for generating ASTs and analysis. In addition, the purpose of this UML-Alloy conversion allows to identify consistencies in those UML models which is similar to what we were trying to achieve with FORS for business models. 
 
 \section{Alchemy: Transmuting Base Alloy Specifications into Implementations}
-We present Alchemy, which compiles Alloy specifications into implementations that execute against persistent databases. Alchemy translates a subset of Alloy predicates into imperative update operations, and it converts facts into database integrity constraints that it maintains automatically in the face of these imperative actions.
+As discussed previously, Alchemy compiles Alloy specifications into implementation of API for persistent databases. Alchemy translates a subset of Alloy predicates into update operations and it converts facts into database integrity constraints. This paper overlaps with some parts of our research. We studied this article in order to create a better tool. We discussed about the main differences and compared Alchemy against Forgery in section 5.3.
 
 \section{Mapping between Alloy specifications and database implementations}
-An abstract Alloy specification is far from an actual implementation, and manually refining the former into the latter is unfortunately a non-trivial task. This paper identifies a subset of the Alloy language that is equivalent to a relational database schema with the most conventional integrity constraints, namely functional and inclusion dependencies.
+\begin{comment} 
+// TODO: ADD TO BIB
+// can be used for the intro etc
+An abstract Alloy specification is far from an actual implementation, and manual implementation is not easy. refining the former into the latter is unfortunately a non-trivial task.
+\end{comment}
+This paper identifies a subset of the Alloy language that is equivalent to a relational database schema with the most conventional integrity constraints. In light with Forgery, we had to review the common Alloy syntax that is used in FORS, and then trying to match them with the equivalent SQL. This paper presents some comparisons which we used for our need and helped us to identify difficulties in the conversation to database schema.
 
 \section{Towards an Operational Semantics for Alloy}
-In this paper we demonstrate the subtlety of representing state in Alloy speci- fications. We formalize a natural notion of transition semantics for state-based specifications and show examples of specifications in this class for which analy- sis based on relational algebra can induce false confidence in designs.
+This paper discuss about writing stateful Alloy specifications. It formalize a natural notion of transition semantics for state-based specifications and demonstrates it using examples. Database operations are also state-based and few ideas used for creating Forgery, especially for the evaluation part which we used traces (states) to validate Forgery.
 
 \newpage
 
