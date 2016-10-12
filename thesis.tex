@@ -534,9 +534,11 @@ $Facts$ procedures modify the flag $return\_value$ to $1$ or $0$ (logic True or 
 
 \newpage
 
-\section{Architecture Overview}
+\section{Implementation Overview}
+It was challenging to create a tool that transforms Alloy, which is far from an actual implementation, into a concrete database system. We had to identify a subset of the Alloy language that is equivalent to a SQL code, including structures, constraints and functions. Forgery supports signatures and relations, cardinalities, and simple forms of predicates and facts. We assume that Forgery is used for relatively simple models, such as those we are described in FORS.
 
-\textit{Forgery} consists of 7 main modules:
+\subsection{Architecture Overview}
+\textit{Forgery} consists of 7 main jobs:
 \begin{enumerate}
 	\item Syntax Validator: \textit{Forgery} checks the input using \textit{Alloy} API. A failure throws an exception, and stops the execution.
 	\item Parser and Mappers: \textit{Forgery} parses the \textit{Alloy} syntax and generates ASTs (Abstract Syntax Trees). Those ASTs are flattened to a simpler map structures for later processing.
@@ -549,26 +551,87 @@ $Facts$ procedures modify the flag $return\_value$ to $1$ or $0$ (logic True or 
 
 \begin{figure}[h!]
 \centering
-\includegraphics[scale=0.45]{forgery}
+\includegraphics[scale=0.5]{forgery}
 \caption{Forgery architecture}
 \end{figure}
 
-We implemented \textit{Forgery} using \textit{Rascal}. We chose \textit{Rascal} due to its powerful DSL and AST (Abstract Syntax Trees) tools. Since we used a standard SQL language, any arbitrary database system can be used. We used \textit{MySQL} due to his popularity and the provided set of tools.
+\newpage
+
+\subsection{Technical Details}
+
+\subsubsection{Used Tools}
+We implemented \textit{Forgery} using \textit{Rascal MPL} which was created by \textit{CWI} based on \textit{Java}. We chose \textit{Rascal} due to its simple but powerful tools for creating meta-programs. Meta-programs are usually used to analyze code, generate programs or transform programs to other programs. Forgery transforms a subset of Alloy into SQL. Therefore for example, a programmable tool for generating ASTs (Abstract Syntax Trees) was essential for us and could be achieved relatively easily with Rascal.
+\\\\
+Since we used a standard SQL language, any arbitrary database system can be used. We chose \textit{MySQL} which is popular choice. MySQL offers a free visual tool named Workbench. It allows data modeling, SQL development and different server/database administration tools.
+\\\\
+\subsubsection{Metrics}
+\def\arraystretch{1.5}%
+\begin{table}[h!]
+  \label{tab:table1}
+  \begin{tabular}{|l||c|c|}
+  \hhline{-|-|-|}
+    Metric & Value\\
+    \hhline{|=|=|=|}
+    Project Size & < 0.5MB \\
+    \hhline{-|-|-|}
+    Runtime (Input LOC=30) & 23.1ms \\
+    \hhline{-|-|-|}
+    Runtime (Input LOC=90) & 31.2ms \\
+    \hhline{-|-|-|}
+  \end{tabular}
+  \centering
+  \caption{General Metrics}
+\end{table}
+
+\def\arraystretch{1.5}%
+\begin{table}[h!]
+  \label{tab:table1}
+  \begin{tabular}{|l||c|c|}
+  \hhline{-|-|-|}
+    Module Name & Lines of Code & Functions/Data Types \\
+    \hhline{|=|=|=|}
+    Parser & 35 & 6 \\
+    \hhline{-|-|-|}
+    Main & 30 & 2 \\
+    \hhline{-|-|-|}
+    Grammar & 126 & 29 \\
+    \hhline{-|-|-|}
+    Ast & 95 & 29 \\
+    \hhline{-|-|-|}
+    Generators.Maps.Facts & 64 & 2 \\
+    \hhline{-|-|-|}
+    Generators.Maps.Predicates & 122 & 4 \\
+    \hhline{-|-|-|}
+    Generators.Maps.Signatures & 101 & 7 \\
+    \hhline{-|-|-|}
+    Generators.Database.Procedures & 99 & 5 \\
+    \hhline{-|-|-|}
+    Generators.Database.Scheme & 96 & 2 \\
+    \hhline{-|-|-|}
+    Generators.Database.Procedures.Atoms & 38 & 2 \\
+    \hhline{-|-|-|}
+    Generators.Database.Procedures.Cardinalities & 77 & 2 \\
+    \hhline{-|-|-|}
+    Generators.Database.Procedures.Facts & 210 & 2 \\
+    \hhline{-|-|-|}
+    Generators.Database.Procedures.Predicates & 190 & 2 \\
+     \hhline{-|-|-|}
+    \textbf{Total} & \textbf{1283} & \textbf{94} \\
+    \hhline{-|-|-|}
+  \end{tabular}
+  \centering
+  \caption{Lines of Code and Amount of Functions/Data Types per module}
+\end{table}
 
 \newpage
 
-\section{Alchemy Comparison}
-Although related papers will be presented in a different chapter, there is a unique paper called Alchemy \cite{alchemy} that we 
-have studied. Due to overlapping research we will present it here. Similarly to Forgery, Alchemy compiles Alloy specifications into database implementation. We will discuss about the main differences here.\\
+Forgery contains a main package and 3 additional packages. In total it has 13 modules as illustrated in figure 5.2. The Main module is responsible for starting the program and for exporting the SQL data in the end of the process. The parser converts the input into AST objects that are used by the database schema and procedures generators. The Map modules are responsible to map between different objects, simplify the data structure and to extract different types of data.
 
-\subsection{Forgery uses pure SQL}
-Alchemy generates a synthesizing API as a layer that communicates with the database. In other words, the data validity can be guaranteed only when this API is used. In contrast, Forgery generates a SQL system with constraints that are implemented in the tables and the database level itself. Hence, it is more robust - the validation occurs in the data storing level. Also, SQL language is usually more familiar for technical people. And therefore, it may give a communication advantage.\\
-
-\subsection{Alchemy has no evaluation and assertions are not supported}
-As introduced before, Alloy supports assertions for checking the model. Using the powerful Analyzer we able to detect mistakes in our specifications. Forgery supports assertions and even use their traces for evaluation. Alchemy introduced a shortcut to write predicates. However, those predicate specifications might be in contradiction to invariants. They added an auto-repair functionality that fix the data in case it has a conflict. However, since the specifications are invalid by the nature of Alloy. The assertions and the analyzer cannot be used. Alchemy does not have evaluation method.\\
-
-\subsection{Forgery supports atoms control}
-Alchemy does not generate command options to insert or delete atoms. By default, Forgery creates such procedures (With an option to create them manually) so atoms can be created.
+\begin{figure}[h!]
+\centering
+\includegraphics[scale=0.5]{modules}
+\caption{Core Modules and Packages in Forgery}
+\end{figure}
 
 \newpage
 
@@ -950,7 +1013,7 @@ END //
 \begin{figure}[h!]
 \centering
 \includegraphics[scale=0.5]{3}
-\caption{Generated Relational Database}
+\caption{Generated Relational Database Schema}
 \end{figure}
 
 \newpage
@@ -1226,6 +1289,33 @@ For those two cases, we use the assertions results (counter-example traces) and 
 Simulating those four scenarios in Forgery for different inputs will support us finding bugs in Forgery, and fix them so it will better matched to Alloy's behavior. Currently, the process itself is not fully automatic, however, we used multiple inputs and compared them in order to cover as many scenarios as possible.
 
 \newpage
+\section{Discussion}
+Alloy improves the software design process by creating models and verifying them. However, its result is far from an actual implementation. The aim of this dissertation was to bridge between Alloy models and actual implementation. 
+\\\\
+We tried to achieve this purpose by creating a tool that  transforms Alloy specifications into SQL for database schema and transactions synthesizing. In other words, we had to identify a subset of the Alloy syntax that is equivalent to a relational database schema with constraints and functions, and then create a tool that automatically converts the first into the second accordingly.
+\\\\
+This thesis has shown that it is possible to convert a subset of Alloy specifications into SQL. We created Forgery and offered it as such a solution. Forgery generates a pure SQL code that results in database schema with foreign keys, procedures with conditions for updating data and constraints based on facts and cardinalities.
+\\\\
+Forgery has a number of possible limitations. Forgery supports only a subset of Alloy syntax that was introduced previously. It includes signatures, fields (with quantifiers) and a basic form of predicates and facts. In addition, we do not support some relation operators, first order logic and some other grammar. 
+\\\\
+In Alloy book we found few examples that breaks Forgery because they use syntax that we do not fully support. For example, address book 3a \cite[p. ~25]{abstractions}. Such issues can be improved by extending the AST module and improving the validator.
+\\\\
+There might be other scenarios that we did not check where Forgery breaks. Therefore, future larger studies with more analyses and additional implementations would be necessary before Forgery can be fully complete.
+
+\subsection{Alchemy Comparison}
+Although related papers will be presented in a dedicated chapter, there is a unique paper called Alchemy \cite{alchemy} that we 
+have studied deeply. Only this study, to our knowledge, has examined overlapping scope. Hence we decided to include it in this discussion. Similarly to Forgery, Alchemy compiles Alloy specifications into database implementation. We will discuss about the main differences here.
+
+\subsubsection{Forgery uses pure SQL}
+Alchemy generates a synthesizing API as a layer that communicates with the database. In other words, the data validity can be guaranteed only when this API is used. In contrast, Forgery generates a SQL system with constraints that are implemented in the tables and the database level itself. Hence, it is more robust - the validation occurs in the data storing level. Also, SQL language is usually more familiar for technical people. And therefore, it may give a communication advantage.
+
+\subsubsection{Alchemy has no evaluation and assertions are not supported}
+As introduced before, Alloy supports assertions for checking the model. Using the powerful Analyzer we able to detect mistakes in our specifications. Forgery supports assertions and even use their traces for evaluation. Alchemy introduced a shortcut to write predicates. However, those predicate specifications might be in contradiction to invariants. They added an auto-repair functionality that fix the data in case it has a conflict. However, since the specifications are invalid by the nature of Alloy. The assertions and the analyzer cannot be used. Alchemy does not have evaluation method.
+
+\subsubsection{Forgery supports atoms control}
+Alchemy does not generate command options to insert or delete atoms. By default, Forgery creates such procedures (With an option to create them manually) so atoms can be created.
+
+\newpage
 
 \chapter{Related Work}
 
@@ -1244,7 +1334,7 @@ As discussed previously, Alchemy compiles Alloy specifications into implementati
 // can be used for the intro etc
 An abstract Alloy specification is far from an actual implementation, and manual implementation is not easy. refining the former into the latter is unfortunately a non-trivial task.
 \end{comment}
-This paper identifies a subset of the Alloy language that is equivalent to a relational database schema with the most conventional integrity constraints. In light with Forgery, we had to review the common Alloy syntax that is used in FORS, and then trying to match them with the equivalent SQL. This paper presents some comparisons which we used for our need and helped us to identify difficulties in the conversation to database schema.
+This paper identifies a subset of the Alloy language that is equivalent to a relational database schema with integrity constraints. In light of Forgery, identifying such a subset is essential for part of our research. This paper is also similar in a way that It also outputs a SQL database. However, this paper is missing a discussion about predicates and facts, which are vital for FORS project.
 
 \section{Towards an Operational Semantics for Alloy}
 This paper discuss about writing stateful Alloy specifications. It formalize a natural notion of transition semantics for state-based specifications and demonstrates it using examples. Database operations are also state-based and few ideas used for creating Forgery, especially for the evaluation part which we used traces (states) to validate Forgery.

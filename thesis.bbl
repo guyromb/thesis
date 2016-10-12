@@ -20,6 +20,11 @@ Barry Boehm and Victor~R. Basili, \emph{Software defect reduction top 10 list},
 Michael Brackett, \emph{Data architecture and data structures}, DATAVERSITY,
   2013.
 
+\bibitem{mappingdb}
+Alcino Cunha and Hugo Pacheco, \emph{Mapping between alloy specifications and
+  database implementations}, Software Engineering and Formal Methods, Seventh
+  IEEE International Conference (2009), 1--10.
+
 \bibitem{introtodb}
 Christopher~J. Date, \emph{An introduction to database systems}, Pearson, 2003.
 

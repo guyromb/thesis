@@ -14,32 +14,32 @@
 \BOOKMARK [1][-]{section.4.5}{Assertions}{chapter.4}% 14
 \BOOKMARK [0][-]{chapter.5}{Forgery Solution}{}% 15
 \BOOKMARK [1][-]{section.5.1}{Key Ingredients}{chapter.5}% 16
-\BOOKMARK [1][-]{section.5.2}{Architecture Overview}{chapter.5}% 17
-\BOOKMARK [1][-]{section.5.3}{Alchemy Comparison}{chapter.5}% 18
-\BOOKMARK [2][-]{subsection.5.3.1}{Forgery uses pure SQL}{section.5.3}% 19
-\BOOKMARK [2][-]{subsection.5.3.2}{Alchemy has no evaluation and assertions are not supported}{section.5.3}% 20
-\BOOKMARK [2][-]{subsection.5.3.3}{Forgery supports atoms control}{section.5.3}% 21
-\BOOKMARK [1][-]{section.5.4}{Scheme Generation}{chapter.5}% 22
-\BOOKMARK [2][-]{subsection.5.4.1}{Atom Tables}{section.5.4}% 23
-\BOOKMARK [2][-]{subsection.5.4.2}{Field Relations}{section.5.4}% 24
-\BOOKMARK [1][-]{section.5.5}{Procedures Generation}{chapter.5}% 25
-\BOOKMARK [2][-]{subsection.5.5.1}{Quantifiers}{section.5.5}% 26
-\BOOKMARK [2][-]{subsection.5.5.2}{Predicates}{section.5.5}% 27
-\BOOKMARK [2][-]{subsection.5.5.3}{Facts}{section.5.5}% 28
-\BOOKMARK [1][-]{section.5.6}{Forgery Algorithms}{chapter.5}% 29
-\BOOKMARK [2][-]{subsection.5.6.1}{Scheme Generation}{section.5.6}% 30
-\BOOKMARK [2][-]{subsection.5.6.2}{Procedures Generation for Predicates}{section.5.6}% 31
-\BOOKMARK [2][-]{subsection.5.6.3}{Procedures Generation for Invariants}{section.5.6}% 32
-\BOOKMARK [1][-]{section.5.7}{Evaluation}{chapter.5}% 33
-\BOOKMARK [2][-]{subsection.5.7.1}{Reverse Engineering}{section.5.7}% 34
-\BOOKMARK [2][-]{subsection.5.7.2}{Validation Scenarios}{section.5.7}% 35
+\BOOKMARK [1][-]{section.5.2}{Implementation Overview}{chapter.5}% 17
+\BOOKMARK [2][-]{subsection.5.2.1}{Architecture Overview}{section.5.2}% 18
+\BOOKMARK [2][-]{subsection.5.2.2}{Technical Details}{section.5.2}% 19
+\BOOKMARK [1][-]{section.5.3}{Scheme Generation}{chapter.5}% 20
+\BOOKMARK [2][-]{subsection.5.3.1}{Atom Tables}{section.5.3}% 21
+\BOOKMARK [2][-]{subsection.5.3.2}{Field Relations}{section.5.3}% 22
+\BOOKMARK [1][-]{section.5.4}{Procedures Generation}{chapter.5}% 23
+\BOOKMARK [2][-]{subsection.5.4.1}{Quantifiers}{section.5.4}% 24
+\BOOKMARK [2][-]{subsection.5.4.2}{Predicates}{section.5.4}% 25
+\BOOKMARK [2][-]{subsection.5.4.3}{Facts}{section.5.4}% 26
+\BOOKMARK [1][-]{section.5.5}{Forgery Algorithms}{chapter.5}% 27
+\BOOKMARK [2][-]{subsection.5.5.1}{Scheme Generation}{section.5.5}% 28
+\BOOKMARK [2][-]{subsection.5.5.2}{Procedures Generation for Predicates}{section.5.5}% 29
+\BOOKMARK [2][-]{subsection.5.5.3}{Procedures Generation for Invariants}{section.5.5}% 30
+\BOOKMARK [1][-]{section.5.6}{Evaluation}{chapter.5}% 31
+\BOOKMARK [2][-]{subsection.5.6.1}{Reverse Engineering}{section.5.6}% 32
+\BOOKMARK [2][-]{subsection.5.6.2}{Validation Scenarios}{section.5.6}% 33
+\BOOKMARK [1][-]{section.5.7}{Discussion}{chapter.5}% 34
+\BOOKMARK [2][-]{subsection.5.7.1}{Alchemy Comparison}{section.5.7}% 35
 \BOOKMARK [0][-]{chapter.6}{Related Work}{}% 36
 \BOOKMARK [1][-]{section.6.1}{From UML to Alloy and Back Again}{chapter.6}% 37
 \BOOKMARK [1][-]{section.6.2}{Alchemy: Transmuting Base Alloy Specifications into Implementations}{chapter.6}% 38
 \BOOKMARK [1][-]{section.6.3}{Mapping between Alloy specifications and database implementations}{chapter.6}% 39
 \BOOKMARK [1][-]{section.6.4}{Towards an Operational Semantics for Alloy}{chapter.6}% 40
 \BOOKMARK [0][-]{chapter.7}{Conclusions}{}% 41
-\BOOKMARK [0][-]{chapter*.6}{Bibliography}{}% 42
+\BOOKMARK [0][-]{chapter*.11}{Bibliography}{}% 42
 \BOOKMARK [0][-]{chapter.8}{Appendix}{}% 43
 \BOOKMARK [1][-]{section.8.1}{Alloy Quick Reference}{chapter.8}% 44
 \BOOKMARK [2][-]{subsection.8.1.1}{Logic}{section.8.1}% 45
