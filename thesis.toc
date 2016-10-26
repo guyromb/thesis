@@ -35,36 +35,39 @@
 \contentsline {subsection}{\numberline {5.5.3}Procedures Generation for Invariants}{33}{subsection.5.5.3}
 \contentsline {section}{\numberline {5.6}Evaluation}{35}{section.5.6}
 \contentsline {subsection}{\numberline {5.6.1}Reverse Engineering}{35}{subsection.5.6.1}
-\contentsline {subsection}{\numberline {5.6.2}Validation Scenarios}{36}{subsection.5.6.2}
-\contentsline {subsubsection}{True Positive - False Negative}{36}{section*.6}
-\contentsline {subsubsection}{True Negative - False Positive}{36}{section*.7}
-\contentsline {section}{\numberline {5.7}Discussion}{37}{section.5.7}
-\contentsline {subsection}{\numberline {5.7.1}Alchemy Comparison}{37}{subsection.5.7.1}
-\contentsline {subsubsection}{Forgery uses pure SQL}{37}{section*.8}
-\contentsline {subsubsection}{Alchemy has no evaluation and assertions are not supported}{37}{section*.9}
-\contentsline {subsubsection}{Forgery supports atoms control}{37}{section*.10}
-\contentsline {chapter}{\numberline {6}Related Work}{38}{chapter.6}
-\contentsline {section}{\numberline {6.1}From UML to Alloy and Back Again}{38}{section.6.1}
-\contentsline {section}{\numberline {6.2}Alchemy: Transmuting Base Alloy Specifications into Implementations}{38}{section.6.2}
-\contentsline {section}{\numberline {6.3}Mapping between Alloy specifications and database implementations}{38}{section.6.3}
-\contentsline {section}{\numberline {6.4}Towards an Operational Semantics for Alloy}{38}{section.6.4}
-\contentsline {chapter}{\numberline {7}Conclusions}{39}{chapter.7}
-\contentsline {chapter}{Bibliography}{40}{chapter*.11}
-\contentsline {chapter}{\numberline {8}Appendix}{41}{chapter.8}
-\contentsline {section}{\numberline {8.1}Alloy Quick Reference}{41}{section.8.1}
-\contentsline {subsection}{\numberline {8.1.1}Logic}{41}{subsection.8.1.1}
-\contentsline {subsection}{\numberline {8.1.2}Syntax}{42}{subsection.8.1.2}
-\contentsline {subsubsection}{Signatures and relations}{43}{section*.12}
-\contentsline {subsubsection}{Constraining a declaration}{43}{section*.13}
-\contentsline {subsubsection}{Multiplicity constraints in declarations}{43}{section*.14}
-\contentsline {subsubsection}{Facts}{44}{section*.15}
-\contentsline {subsubsection}{Disjointness}{44}{section*.16}
-\contentsline {subsubsection}{Cardinality constraints}{44}{section*.17}
-\contentsline {subsection}{\numberline {8.1.3}Modelling}{44}{subsection.8.1.3}
-\contentsline {subsubsection}{Language constructs}{44}{section*.18}
-\contentsline {subsubsection}{Which construct to use where?}{45}{section*.19}
-\contentsline {subsection}{\numberline {8.1.4}Signatures}{45}{subsection.8.1.4}
-\contentsline {subsection}{\numberline {8.1.5}Functions}{46}{subsection.8.1.5}
-\contentsline {subsection}{\numberline {8.1.6}Predicates}{46}{subsection.8.1.6}
-\contentsline {subsection}{\numberline {8.1.7}Facts}{46}{subsection.8.1.7}
-\contentsline {subsection}{\numberline {8.1.8}Assertions}{46}{subsection.8.1.8}
+\contentsline {subsubsection}{The data flow}{36}{section*.6}
+\contentsline {subsubsection}{XML}{36}{section*.7}
+\contentsline {subsubsection}{Database}{37}{section*.8}
+\contentsline {subsection}{\numberline {5.6.2}Validation Scenarios}{39}{subsection.5.6.2}
+\contentsline {subsubsection}{True Positive - False Negative}{39}{section*.9}
+\contentsline {subsubsection}{True Negative - False Positive}{39}{section*.10}
+\contentsline {section}{\numberline {5.7}Discussion}{40}{section.5.7}
+\contentsline {subsection}{\numberline {5.7.1}Alchemy Comparison}{40}{subsection.5.7.1}
+\contentsline {subsubsection}{Forgery uses pure SQL}{40}{section*.11}
+\contentsline {subsubsection}{Alchemy has no evaluation and assertions are not supported}{40}{section*.12}
+\contentsline {subsubsection}{Forgery supports atoms' control}{40}{section*.13}
+\contentsline {chapter}{\numberline {6}Related Work}{41}{chapter.6}
+\contentsline {section}{\numberline {6.1}From UML to Alloy and Back Again}{41}{section.6.1}
+\contentsline {section}{\numberline {6.2}Alchemy: Transmuting Base Alloy Specifications into Implementations}{41}{section.6.2}
+\contentsline {section}{\numberline {6.3}Mapping between Alloy specifications and database implementations}{41}{section.6.3}
+\contentsline {section}{\numberline {6.4}Towards an Operational Semantics for Alloy}{41}{section.6.4}
+\contentsline {chapter}{\numberline {7}Conclusions}{42}{chapter.7}
+\contentsline {chapter}{Bibliography}{43}{chapter*.14}
+\contentsline {chapter}{\numberline {8}Appendix}{44}{chapter.8}
+\contentsline {section}{\numberline {8.1}Alloy Quick Reference}{44}{section.8.1}
+\contentsline {subsection}{\numberline {8.1.1}Logic}{44}{subsection.8.1.1}
+\contentsline {subsection}{\numberline {8.1.2}Syntax}{45}{subsection.8.1.2}
+\contentsline {subsubsection}{Signatures and relations}{46}{section*.15}
+\contentsline {subsubsection}{Constraining a declaration}{46}{section*.16}
+\contentsline {subsubsection}{Multiplicity constraints in declarations}{46}{section*.17}
+\contentsline {subsubsection}{Facts}{47}{section*.18}
+\contentsline {subsubsection}{Disjointness}{47}{section*.19}
+\contentsline {subsubsection}{Cardinality constraints}{47}{section*.20}
+\contentsline {subsection}{\numberline {8.1.3}Modelling}{47}{subsection.8.1.3}
+\contentsline {subsubsection}{Language constructs}{47}{section*.21}
+\contentsline {subsubsection}{Which construct to use where?}{48}{section*.22}
+\contentsline {subsection}{\numberline {8.1.4}Signatures}{48}{subsection.8.1.4}
+\contentsline {subsection}{\numberline {8.1.5}Functions}{49}{subsection.8.1.5}
+\contentsline {subsection}{\numberline {8.1.6}Predicates}{49}{subsection.8.1.6}
+\contentsline {subsection}{\numberline {8.1.7}Facts}{49}{subsection.8.1.7}
+\contentsline {subsection}{\numberline {8.1.8}Assertions}{49}{subsection.8.1.8}

@@ -62,9 +62,9 @@
 \newpage
 
 \chapter{Abstract}
-The popularity of modeling languages is increasing. This is mostly due to the fact that using modeling languages is an efficient way to end up with a high quality system \cite[p. ~6]{abstractions}. By providing immediate feedback to users they allow early detection of design errors \cite{lightning}. Nonetheless these models are far from being a real implemented product. Manual implementation is required which makes it more prone to mistakes. Our motivation for this research was to find a solution in this matter.\\
+The popularity of modeling languages is increasing. This is mostly because using modeling languages is an efficient way to end up with a high quality system \cite[p. ~6]{abstractions}. They allow early detection of design errors by providing immediate feedback to users \cite{lightning}. Nonetheless, these models are far from being a real implemented product. Manual implementation is required which makes it more prone to mistakes. Our motivation for this research was to find a solution in this matter.\\
 
-We decided to focus our research on the field of automatic database generation rather than whole programs as we found it very interesting. Considering the human factor, it is not possible to develop a fault-free software in practice \cite{reliability}. When those issues occur the data itself may also be effected and this makes it more difficult to repair. Data errors can harm the reputation of an organization, diminish financial gains and create uncertainty in an organization.\\
+We decided to focus our research on the field of automatic database generation rather than whole programs as we found it very interesting. Considering the human factor, it is not possible to develop a fault-free software in practice \cite{reliability}. When those issues occur the data itself may also be affected and this makes it more difficult to repair. Data errors can harm the reputation of an organization, diminish financial gains and create uncertainty in an organization.\\
 
 \textit{Forgery} is a tool for generating database schemes and synthesize transactions based on a predefined model. \textit{Forgery} uses \textit{Alloy} as a specification language for describing models and validating them. An \textit{Alloy} model is a collection of constraints and relations that describes a set of structures. Using pre- and postconditions it defines the operations that are allowed in the system. \textit{Forgery} converts them into database tables, procedures and structural constraints.
 
@@ -91,11 +91,11 @@ Synthesizing database transaction from a DSL for financial products
 
 \chapter{Preface}
 
-This research was done for the Dutch bank ING. The original project aimed to find a solution regarding the communication issues between technical and non-technical teams inside the organization. For example, specifications ambiguity or misunderstandings between the teams.\\
-
-The project was initially called \textit{Fors} and later on was renamed to \textit{Rebel}. \textit{Rebel} is a domain specific language (DSL) that parses business software specifications into algebraic-based language which is called \textit{Alloy}. With \textit{Alloy} it is possible to validate models, and those can be implemented by the technical team.\\
-
-\textit{Forgery} aims to find a solution regarding faults in the process of the realization of a model. \textit{Forgery} continues the process of \textit{Fors} to support the realization. Together with \textit{Fors} we may achieve two things: better specifications and better realization.\\
+This research was done for the Dutch bank ING. The original project aimed to find a solution regarding the communication issues between technical and non-technical teams inside the organization. For example, specifications ambiguity or misunderstandings between the teams.
+\\\\
+The project was initially called \textit{Fors} and later on was renamed to \textit{Rebel}. \textit{Rebel} is a domain specific language (DSL) that parses business software specifications into algebraic-based language, which is called \textit{Alloy}. With \textit{Alloy} it is possible to validate models which can be implemented by the technical team.
+\\\\
+\textit{Forgery} aims to find a solution regarding faults in the process of the realization of a model. \textit{Forgery} continues the process of \textit{Fors} to support the realization. Together with \textit{Fors} we may achieve two things: better specifications and better realization.
 
 \newpage
 
@@ -104,41 +104,41 @@ This chapter discusses the background of developing \textit{Forgery}, the previo
 
 \section{Motivation}
 
-The success of implementing software projects is directly affected by the quality of its specifications \cite[p.~12]{requirements}. The specifications are typically defined based on two conceptual views: business and technical and are usually defined by different teams or people with various backgrounds. The gap between those two different perspectives may lead to costly misunderstandings \cite[p.~1]{fors}. Changing specifications after implementation of software often takes much more time and is also more expensive \cite{defectstopten}.\\
+The success of implementing software projects is directly affected by the quality of its specifications \cite[p.~12]{requirements}. Specifications are typically defined based on two conceptual views: business and technical. They are usually defined by different teams or people with various backgrounds. The gap between those two different perspectives may lead to costly misunderstandings \cite[p.~1]{fors}. Changing specifications after implementation of software often takes much more time and is also more expensive \cite{defectstopten}.\\
 
-Today several tools exist for modeling and verifying software specifications. Examples are $Alloy$ and $Z-notation$. These tools allow software engineers to create prototypes of their ideas and identify errors, before realization. \\
+Today several tools exist for modeling and verifying software specifications. Examples are $Alloy$ and $Z-notation$. These tools allow software engineers to create prototypes of their ideas and identify errors, before the realization. \\
 
-However, sometimes such modeling tools seems to be too complicated. Even though the mathematical notations of these tools are unambiguous, the use of set theories, logic and algebra requires special expertise \cite[p.~10]{fors}. In addition, these tools are useful especially for prototyping general models and less effective when it comes to specific domains. We focus on such a specific domain (financial systems). \\
+However, sometimes such modeling tools seem to be too complicated. Even though the mathematical notations of these tools are unambiguous, the use of set theories, logic and algebra requires special expertise \cite[p.~10]{fors}. In addition, these tools are useful especially for prototyping general models and less effective when it comes to specific domains. We focus on such a specific domain (financial systems). \\
 
 Because of the above-mentioned, we aimed at creating a new tool that would be better suited for prototyping financial systems and could be used by both the business and the development teams. We have developed our own Domain Specific Language (DSL) and called it $Fors$ which derived from: Separating Configuration From Formal Specification \cite{fors}. The concept of a DSL is very simple: Instead of aiming to solve any kind of computing problem, DSLs aim to solve specific class of problems. \cite{dsl}. In our case the DSL aims to solve problems of financial systems.  \\
 
-$Fors$ expresses the operations of a system in a language whose vocabulary, syntax and semantics are formally defined in an easy and natural way. This way, $Fors$ is comprehensible for both business and development teams. In addition, $Fors$ is able to check the correctness of a software model. $Fors$ parse formal specifications into $Alloy$ syntax: algebraic logic formulas based on the notion of relations (We will elaborate on this more later in this thesis). Using an $Alloy$ based engine we are able to solve such formulas and find ambiguities in a model. \\
+$Fors$ expresses the operations of a system in a language whose vocabulary, syntax and semantics are formally defined in an easy and natural way. This way, $Fors$ is comprehensible for both business teams and development teams. In addition, $Fors$ is able to check the correctness of a software model. $Fors$ parse formal specifications into $Alloy$ syntax: algebraic logic formulas based on the notion of relations (We will elaborate on this more later in this thesis). Using an $Alloy$ based engine we are able to solve such formulas and find ambiguities in a model. \\
 
-$Fors$ minimizes the gap between the business and the technical views by creating a common language and the ability to identify contradictions or faults in a specific model. However, there is still a main issue that remains: Programmers will have to implement the real product by hand (according to the specifications). Hence, it is not guaranteed that the final results would be exactly the same as defined in the specifications. When considering human factor also this system is prone to error. \\
+$Fors$ minimizes the gap between the business and the technical views by creating a common language and the ability to identify contradictions or faults in a specific model. However, there is still a main issue that remains: Programmers will have to implement the real product by hand (according to the specifications). Hence, it is not guaranteed that the final results would be exactly the same as defined in the specifications. When considering human factor, also this system is prone to error. \\
 
 Therefore, our motivation was to find out whether we would be able to create a tool for automatic system generation. We decided to scope our research on the data-side as we found it highly interesting. As mentioned previously, data errors can harm the reputation of an organization, diminish financial gains and create uncertainty in an organization. Synthesizing the data may reduce or even avoid such events.\\
 
-Data is usually stored in a record-keeping system called a database. A database therefore is a repository for a collection of data files on which users may perform a variety of operations (e.g. adding, modifying or reading files) \cite[p.~11]{introtodb}.\\
+Data are usually stored in a record-keeping system called a database. A database therefore is a repository for a collection of data files on which users may perform a variety of operations (e.g. adding, modifying or reading files) \cite[p.~11]{introtodb}.\\
 
 The scope of database is often described as having the following three aspects:
 \begin{itemize}
   \item Data Structure - the structure is a representation of the arrangement, relationships, and contents of data \cite{datastruct}. The structure is described diagrammatically by the data schema.  
   \item Data Manipulation - the available operations that can be applied on the data. Mainly $CRUD$ (Create, Read, Update and Delete) operations.
-  \item Data Integrity - refers to the accuracy and consistency (validity) of data over its lifecycle.
+  \item Data Integrity - refers to the accuracy and consistency (validity) of data over its life cycle.
 \end{itemize}
 
-Using a database has numerous benefits that lay mostly in the fact that data control is centalized. First, redundancy can be reduced. In contrast to private files, by using a relational database it is possible to merge related or overlapping information. Second, by linking multiple rows and by use of transactions it is possible to avoid inconsistency of data (corollary of the previous point). Third, security (permissions) and standards (e.g. representation of the data) can be enforced. And last, using a database simplifies sharing data between multiple workstations \cite[p.~16]{introtodb}.\\
+Using a database has numerous benefits that lay mostly in the fact that data control is centralized. First, redundancy can be reduced, in contrast to private files for example. It is possible to merge related or overlapping information by using a relational database. Second, by linking multiple rows and by the use of transactions it is possible to avoid inconsistency of data (corollary of the previous point). Third, security (permissions) and standards (e.g. representation of the data) can be enforced. And last, using a database simplifies sharing data between multiple workstations \cite[p.~16]{introtodb}.\\
 
 $Fors$ uses $Alloy$; and $Alloy$ is based on relations. We therefore investigated if it is possible to make a link between Alloy and relational databases. We consequently investigated the possibility to automatically generate a matching database. \\
 
 A relational database consists of three main principles:
 \begin{itemize}
-	\item Tables are the logical structure (although physically they can be stored in multiple ways like binary trees, hashing etc). 
+	\item Tables are the logical structure (although physically they can be stored in multiple ways like binary trees, hashing, etc.). 
 	\item The information principle - the entire content of the database is represented in one specific way and only that way. 
 	\item The operators available to the user derive from an old state to a new one.
 \end{itemize}
 
-A relational database has the prefix $relational$ not only because of entities and relationships but primarily because of the fact that relation is a mathematical term 
+A relational database has the prefix $relational$ not only because of entities and relationships, but primarily because relation is a mathematical term 
 for a table \cite[p.~26]{introtodb}. A relational system is based on the relational model of data.\\
 
 \textbf{Example -} Simple student grades system:
@@ -147,11 +147,11 @@ for a table \cite[p.~26]{introtodb}. A relational system is based on the relatio
 \includegraphics[scale=0.9]{table1}
 \end{center}
 
-In this example, we used the students table to store the names of the students. We used the grades table for storing the student’s grades. In order to make a link between a student and a grade we used a unique numeric identifier. \\
+In this example, we used the $students$ table to store the names of the students. We used the $grades$ table for storing the student grades. In order to make a link between a student and a grade we used a unique numeric identifier. \\
 
-The system user (e.g. a teacher) can now use multiple operations to manipulate the data. Each performed operation (e.g. deleting data) will generate a new table by changing the table from an "old" into a "new" state. For example, by deleting a grade row, this relation will be replaced by a new one (excluding the deleted row). In a similar fashion new tables will be generated when inserting or updating data. \\
+The system user (e.g. a teacher) can now use multiple operations to manipulate the data. Each performed operation (e.g. deleting data) will generate a new table by changing the table from an "old" into a "new" state. For example, by deleting a grade row, this relation will be replaced with a new one (excluding the deleted row). In a similar fashion new tables will be generated when inserting or updating data. \\
 
-We have already mentioned the term $relation$ multiple times. Before we can fully define a relation we first have to introduce few more terms, which are crucial for understanding what a relation is.\\
+We have already mentioned the term $relation$ multiple times. Before we can fully define a relation, we first have to introduce few more terms, which are crucial for understanding what a relation is.\\
 
 Given a collection of data types (e.g. names, dates, addresses etc) $Ti(i=1,2,3...)$, an attribute $Ai$ is a pair of a data type $Ti$ and a value of this type $Vi$ (attribute value). So a tuple $t$, say - is a set of attributes.\\
 $tn(n=1,2..)={<A1, V1>, <A2, V2>, ... <An, Vn>}$\\
@@ -184,13 +184,13 @@ In summary, if a relation is a table, the rows are the tuples, and the columns a
 
 The relations theory provides a set of operations which we can apply on relations - such operations allow us to add, delete or modify data. For example, subset of $\subset$, superset of $\supset$, equals $=$ and others.\\
 
-Practically, when it come to databases, many of them use SQL (Structured Query Language). SQL is a declarative language designed for constructing relational databases and managing the data that is held in it. For example, we can send a query to insert a new data.\\
+Practically, when it comes to databases, many of them use SQL (Structured Query Language). SQL is a declarative language designed for constructing relational databases and managing data that are held in it. For example, we can send a query to insert a new data.\\
 
-In our thesis, we will try to convert Alloy syntax into SQL. \textit{Alloy} is based on the notion of relations and it uses relations as its main structure. Therefore, the data model of \textit{Alloy} can be translated directly into a relational database schema, using SQL. Obviously, \textit{Alloy} is much more than a data structure. One of the other specifications of \textit{Alloy} is that, it provides functions. We will discuss \textit{Alloy} in depth in the next chapter.
+In our thesis, we will try to convert Alloy syntax into SQL. \textit{Alloy} is based on the notion of relations and it uses relations as its main structure. Therefore, the data model of \textit{Alloy} can be translated directly into a relational database schema, using SQL. Obviously, \textit{Alloy} is much more than a data structure. One of the other specifications of \textit{Alloy} is that, it provides functions. We will discuss \textit{Alloy} in-depth in the next chapter.
 
 \begin{comment}
 The results of software defects are expensive. Except for finding and fixing those defects, it may have huge effect on the data. Personally, I have experienced such a thing in my previous job: A bug in the calculation of a promotion was leaded to storing wrong amounts in the database. The company lost that money as the bills were already sent to the customers and it was irrevertible. Our research will attempt to find a solution to avoid such mistakes \cite{minimizingdefects}.
-In this paper, we will not discuss about \textit{Fors} nor \textit{Alloy} in details. We assume that the reader has a general background about the idea of those two projects. For your convenience we included a quick reference in the appendix.\\
+In this paper, we will not discuss \textit{Fors} nor \textit{Alloy} in details. We assume that the reader has a general background about the idea of those two projects. For your convenience we included a quick reference in the appendix.\\
 \end{comment}
 
 \newpage
@@ -215,13 +215,13 @@ In order to generate tables that represent the corresponding Alloy relations, we
 
 \subsection{Data Operations}
 
-Alloy uses $predicates$ as operations system. It allows users to create customized actions for modifying the data in the system using preconditions, postconditons and algebraic formulas (We will discuss about it in the next chapter). In database systems the core operations are insert, update or delete. We need to bridge between algebraic notation and a SQL query notation.\\
+Alloy uses $predicates$ as operations system. It allows users to create customized actions for modifying the data in the system using preconditions, postconditions and algebraic formulas (This will be discussed in the next chapter). In database systems the core operations are insert, update or delete. We need to bridge between algebraic notation and an SQL query notation.\\
 
 Furthermore, as mentioned before, in database systems the operators available to the user derive from old state to a new one. In \textit{Alloy} this is not necessarily the case. We need to enforce the specifications to follow that way.\\
 
-Lastly, we have to assure that the new state is valid (according to the specified conditions of the formula). For example, \textit{Alloy} allows setting multiple operations inside single predicate. In database systems, each operation is discrete and it may occur that one operation succeeded and the following one didn't. In this case, the new state is invalid. To solve this for example, we can use transactions.\\
+Lastly, we have to ensure that the new state is valid (according to the specified conditions of the formula). For example, \textit{Alloy} allows setting multiple operations inside single predicate. In database systems, each operation is discrete and it may occur that one operation succeeded and the following one didn't. In this case, the new state is invalid. To solve this for example, we can use transactions.\\
 
-We will discuss about the solutions and the related work in the next chapters.
+We will discuss the solutions and the related work in the next chapters.
 
 \begin{comment}
 MOVE TO RELATED WORK
@@ -259,13 +259,13 @@ To answer this question, the following sub-questions have been formulated:
 
 \chapter{Alloy}
 
-Alloy is a declarative specification language for describing models with structural constraints and behavior. Alloy used for modeling software systems. Alloy includes a tool called Alloy Analyzer for visualizing models, and for exploring and checking the properties of them.\\
+Alloy is a declarative specification language for describing models with structural constraints and behaviour. Alloy used for modelling software systems. Alloy includes a tool called Alloy Analyser for visualizing models, and for exploring and checking the properties of them.\\
 
-In this chapter we concentrate on the language part of Alloy, and we will present various examples as demonstration. We will not cover the whole language but focus on the essentials required to understand this work.\\
+In this chapter we concentrate on the language part of Alloy, and we will present various examples as demonstration. We will not cover the whole language, but focus on the essentials required to understand this work.\\
 
 \section{Data Structure}
 
-Alloy data model is based on $atoms$, $signatures$ and $fields$. Atom is the most basic specific element in Alloy. \textbf{sig}nature subsequently, is a set of atoms that also defines the data type. A field then describes the relation between different types of signatures. It is therefore a set of tuples that consists of different types of data. Finally, in Alloy these relations can be unary or binary (using →).\\
+Alloy data model is based on $atoms$, $signatures$ and $fields$. Atom is the most basic specific element in Alloy. \textbf{Sig}nature subsequently, is a set of atoms that also defines the data type. A field then describes the relation between different types of signatures. It is, therefore, a set of tuples that consists of different types of data. Finally, in Alloy these relations can be unary or binary (using →).\\
 
 The following example describes a price list (tariff) of products in a shop. 
 
@@ -277,7 +277,7 @@ sig Shop {
 }
 \end{lstlisting}
 
-The signatures in this example are $price$, $product$ and $shop$. The tariff describes the relation between each product and price within the shop. Simulating this model using Alloy Analyzer will generate all possible examples that follows the model. For example, we may have two shops that have two different products with the same price. In that case, we have two atoms of type shop, two atoms of type product, and single atom of type price.
+The signatures in this example are $price$, $product$ and $shop$. The tariff describes the relation between each product and price within the shop. Simulating this model using Alloy Analyser will generate all possible examples that follow the model. For example, we may have two shops that have two different products with the same price. In that case, we have two atoms of type shop, two atoms of type product, and single atom of type price.
 
 \begin{center}
 \includegraphics[scale=0.6]{shops1}
@@ -285,7 +285,7 @@ The signatures in this example are $price$, $product$ and $shop$. The tariff des
 
 \section{Quantifiers}
 
-Quantifier refers to the amount of elements in a set. Alloy allows us to define quantifier constraints on the data model. Alloy supports $lone$ (size is at most 1), $one$ (size is only 1), $some$ (size is at least 1), $no$ (size is 0). and $all/set$ (size is >= 0) which is used by default. For this example, we assume that we want only one shop in our model:
+Quantifier refers to the amount of elements in a set. Alloy allows us to define quantifier constraints on the data model. Alloy supports $lone$ (size is at most 1), $one$ (size is only 1), $some$ (size is at least 1), $no$ (size is 0) and $all/set$ (size is >= 0) which is used by default. For this example, we assume that we want only one shop in our model:
 
 \begin{lstlisting}
 sig Price {}
@@ -330,7 +330,7 @@ The shop had the product '0' with price '0' and after we added a product '1' wit
 
 \section{Data Invariants}
 
-Alloy allows to create system invariants using \textbf{fact}s. Those properties are meant to hold of all models constructed by Alloy. Any configuration that is an instance of the specification has to satisfy all the facts. In the previous example we could have products that doesn't belong to any shop ($Product0$).
+Alloy allows creating system invariant using \textbf{fact}s. Those properties are meant to hold of all models constructed by Alloy. Any configuration that is an instance of the specification has to satisfy all the facts. In the previous example we could have products that doesn't belong to any shop ($Product0$).
 
 \begin{center}
 \includegraphics[scale=0.6]{shop4}
@@ -361,7 +361,7 @@ fact ProductMustHaveShop {
 \newpage
 
 \section{Assertions}
-Assertions are constraints that were intended to follow from facts of the model. \textbf{Assert}ions are used for checking that the desirable invariants exist using Alloy Analyzer. Alloy Analyzer tries to find counter examples that does not follow those constraints.\\
+Assertions are constraints that were intended to follow from facts of the model. \textbf{Assert}ions are used for checking that the desirable invariants exist using Alloy Analyser. Alloy Analyser tries to find counter examples that do not follow those constraints.\\
 
 Our new requirement now is that we want that each shop will have maximum one tariff, but such invariant was not specified in our model yet.
 
@@ -391,18 +391,18 @@ By simulating the model, all the assertions are checked \textit{LoneTariff}, All
 \includegraphics[scale=0.6]{counterexample}
 \end{center}
 
-By clicking on the counterexample, Alloy Analyzer will present all found counter-models. The following counterexample shows that there are more than one tariff, which is in conflict with the mentioned constrained. 
+Alloy Analyser will present all found counter-models by clicking on the counterexample. The following counterexample shows that there are more than one tariff, which is in conflict with the mentioned constrained. 
 
 \begin{center}
 \includegraphics[scale=0.6]{counterexample1}
 \end{center}
 
-This way, we able to check our model, and make it is more robust minimizing mistakes. Assertions are similar to unit testing which are popular among programming languages.
+This way, we are able to check our model, and make it more robust minimizing mistakes. Assertions are similar to unit testing which are popular among programming languages.
 
 \newpage
 
 \chapter{Forgery Solution}
-In this chapter we will discuss on the solution that we offer. First we will introduce the key ingredients with few examples, and then we will go into deeper details.
+In this chapter we will discuss on the solution that we offer. At first, we will introduce the key ingredients with few examples, and then we will go into deeper details.
 
 \section{Key Ingredients}
 
@@ -427,9 +427,9 @@ For those specifications Alloy will generate multiple models. Arbitrarily we cho
 \includegraphics[scale=0.6]{overview1}
 \end{center}
 
-The system contains two courses and two students which are enrolled to each of those courses. E.g. Student0 is enrolled to Course1. Student0 also submitted his work and he was graded for it.\\
+The system contains two courses and two students who are enrolled to each of those courses. E.g. Student0 is enrolled to Course1. Student0 also submitted his work and he was graded for it.\\
 
-First We need to generate a database schema for storing the data. As can be seen, Alloy Signatures can be translated directly into persistent database schemas. In Forgery, for each Signature we create a table, and for each field we create a junction table that points to the relevant signature tables. Each Signature table stores its atoms. The relations are linked by id's which are also the primary keys.\\
+First, we need to generate a database schema for storing the data. As can be seen, Alloy $signatures$ can be translated directly into persistent database schemas. In Forgery, for each Signature we create a table, and for each field we create a junction table that points to the relevant signature tables. Each Signature table stores its atoms. The relations are linked by id's which are also the primary keys.\\
 
 For example, the $student$ table is created by the following SQL code:
 
@@ -453,13 +453,13 @@ CREATE TABLE `roster`(
 );
 \end{lstlisting}
 
-We use foreign keys to enforce integrity. These constraints guarantee that, for example, a row in the table $roster$ with a field $student\_id$ referencing the $student$ table will never have an $student\_id$ value that does not exist in the $students$ table. In addition, since Alloy refers to sets, according to the set theory, every element of a set must be unique; no two members may be identical. Hence, we create a a SQL unique index.\\
+We use foreign keys to enforce integrity. These constraints guarantee that, for example, a row in the table $roster$ with a field $student\_id$ referencing the $student$ table will never have a $student\_id$ value that does not exist in the $students$ table. In addition, since Alloy refers to sets, according to the set theory, every element of a set must be unique; no two members may be identical. Hence, we create an SQL unique index.\\
 
-Now when we have a database which we can store data in, we need a way to insert, update or delete data. For example, creating Atoms and implementing Alloy's predicates. For that purpose we decided to use SQL stored procedures. Stored procedures are similar to procedures in other programming languages in that they can accept inputs, return output and support programming statements for performing operations on the database.\\
+Now when we have a database that we can store data in, we need a way to insert, update or delete data. For example, creating Atoms and implementing Alloy's predicates. For that purpose we decided to use SQL stored procedures. Stored procedures are similar to procedures in other programming languages in that they accept inputs, return output and support programming statements for performing operations on the database.\\
 
-Alloy is based on the notation of algebraic mathematics. Operators over sets and relations have their usual semantics: + (union), \& (intersection), in (subset), $\rightarrow$ (tupling), and . (join). SQL supports simple operands such as +, - and set operations such as union, intersection, difference etc. That gives us enough flexibility to transform Alloy predicates into SQL procedures.\cite{sqlalgebra}\\
+Alloy is based on the notation of algebraic mathematics. Operators over sets and relations have their usual semantics: + (union), \& (intersection), in (subset), $\rightarrow$ (tupling), and . (join). SQL supports simple operands such as +, - and set operations such as union, intersection, difference and others. That gives us enough flexibility to transform Alloy predicates into SQL procedures.\cite{sqlalgebra}\\
 
-We use the tag symbol (') for describing a state transition. For example, student s is the pre-condition, and s' is the post-condition. Also, we use the input underline prefix as an easy way to create new atoms. Each predicate converted to a SQL procedure, wrapped by transaction. In case of failure, a rollback will be applied.
+We use the tag symbol (') for describing a state transition. For example, student s is the pre-condition, and s' is the post-condition. Also, we use the input underline prefix as an easy way to create new atoms. Each predicate converted to an SQL procedure, wrapped by transaction. In case of failure, a rollback will be applied.
 
 The following predicate enrolls a new student to a course. 
 \begin{lstlisting}
@@ -495,9 +495,9 @@ This procedure accepts two parameters: an existing course id (c), and a new stud
 p_enroll(3, 'Jonathan');
 \end{lstlisting}
 
-It will insert a new row with the value Jonathan to the student table, and another row to the roster table, with the new generated student id and the course id.\\
+It will insert a new row with the value Jonathan to the $students$ table, and another row to the roster table, with the new generated student id and the course id.\\
 
-Similarly, $Facts$ are also converted into procedures. $Facts$ don't have inputs, however variables can be defined easily.
+Similarly, $Facts$ are also converted into procedures. $Facts$ don't have inputs, but variables can be defined easily.
 
 The following fact determine that all students must be enrolled to a course. The expression $all$ is a quantifier which defines that the fact applies for all rows. Forgery support multiple quantifiers such as $some$, $one$ and others. We will discuss them later.
 
@@ -508,7 +508,7 @@ fact mustBeEnrolled {
 }
 \end{lstlisting}
 
-Also in this case we create a SQL procedure.
+Also in this case we create an SQL procedure.
 
 \begin{lstlisting}[escapechar=@,language=SQL]
 DELIMITER //
@@ -530,15 +530,15 @@ END IF;
 END //
 \end{lstlisting}
 
-$Facts$ procedures modify the flag $return\_value$ to $1$ or $0$ (logic True or False) which are equivalent to invariant failure or not accordingly. When the data was modified, the procedures are automatically called and flag is being checked. In case of a invariant violation, the changes will be reverted to the previous valid state (using transactions).\\
+$Facts$ procedures modify the flag $return\_value$ to $1$ or $0$ (logic True or False) which equivalent to invariant failure or not accordingly. When the data were modified, the procedures are automatically called and flag is being checked. In case of an invariant violation, the changes will be reverted to the previous valid state (using transactions).\\
 
 \newpage
 
 \section{Implementation Overview}
-It was challenging to create a tool that transforms Alloy, which is far from an actual implementation, into a concrete database system. We had to identify a subset of the Alloy language that is equivalent to a SQL code, including structures, constraints and functions. Forgery supports signatures and relations, cardinalities, and simple forms of predicates and facts. We assume that Forgery is used for relatively simple models, such as those we are described in FORS.
+It was challenging to create a tool that transforms Alloy, which is far from an actual implementation, into a concrete database system. We had to identify a subset of the Alloy language that is equivalent to an SQL code, including structures, constraints and functions. Forgery supports signatures and relations, cardinalities, and simple forms of predicates and facts. We assume that Forgery is used for relatively simple models, such as those we described in FORS.
 
 \subsection{Architecture Overview}
-\textit{Forgery} consists of 7 main jobs:
+\textit{Forgery} consists of seven main jobs:
 \begin{enumerate}
 	\item Syntax Validator: \textit{Forgery} checks the input using \textit{Alloy} API. A failure throws an exception, and stops the execution.
 	\item Parser and Mappers: \textit{Forgery} parses the \textit{Alloy} syntax and generates ASTs (Abstract Syntax Trees). Those ASTs are flattened to a simpler map structures for later processing.
@@ -560,9 +560,9 @@ It was challenging to create a tool that transforms Alloy, which is far from an 
 \subsection{Technical Details}
 
 \subsubsection{Used Tools}
-We implemented \textit{Forgery} using \textit{Rascal MPL} which was created by \textit{CWI} based on \textit{Java}. We chose \textit{Rascal} due to its simple but powerful tools for creating meta-programs. Meta-programs are usually used to analyze code, generate programs or transform programs to other programs. Forgery transforms a subset of Alloy into SQL. Therefore for example, a programmable tool for generating ASTs (Abstract Syntax Trees) was essential for us and could be achieved relatively easily with Rascal.
+We implemented \textit{Forgery} using \textit{Rascal MPL} which was created by \textit{CWI} based on \textit{Java}. We chose \textit{Rascal} due to its simple but powerful tools for creating meta-programs. Meta-programs are usually used to analyze code, generate programs or transform programs to other programs. Forgery transforms a subset of Alloy into SQL. Therefore, for example, a programmable tool for generating ASTs (Abstract Syntax Trees) was essential for us and could be achieved relatively easily with Rascal.
 \\\\
-Since we used a standard SQL language, any arbitrary database system can be used. We chose \textit{MySQL} which is popular choice. MySQL offers a free visual tool named Workbench. It allows data modeling, SQL development and different server/database administration tools.
+Since we used a standard SQL language, any arbitrary database system can be used. We chose \textit{MySQL}, which is popular choice. MySQL offers a free visual tool named Workbench. It allows data modeling, SQL development and different server/database administration tools.
 \\\\
 \subsubsection{Metrics}
 \def\arraystretch{1.5}%
@@ -625,7 +625,7 @@ Since we used a standard SQL language, any arbitrary database system can be used
 
 \newpage
 
-Forgery contains a main package and 3 additional packages. In total it has 13 modules as illustrated in figure 5.2. The Main module is responsible for starting the program and for exporting the SQL data in the end of the process. The parser converts the input into AST objects that are used by the database schema and procedures generators. The Map modules are responsible to map between different objects, simplify the data structure and to extract different types of data.
+Forgery contains a main package and three additional packages. In total, it has thirteen modules as illustrated in figure 5.2. The Main module is responsible for starting the program and for exporting the SQL data in the end of the process. The parser converts the input into AST objects that are used by the database schema and procedures generator. Map modules are responsible to map between different objects, simplify the data structure and to extract different types of data.
 
 \begin{figure}[h!]
 \centering
@@ -638,9 +638,9 @@ Forgery contains a main package and 3 additional packages. In total it has 13 mo
 \section{Scheme Generation}
 \label{sec:schemegen}
 
-In this section we will discuss about how forgery generates the database scheme; including tables, fields etc. We will use the similar example as described in the overview with additional functionality and we will dive deeper into details. We will also remind some definitions in regarding Alloy.\\
+In this section we are going to discuss how forgery generates the database scheme; including tables, fields and so on. We will use the similar example as described in the overview with additional functionality and we will dive deeper into details. We will also remind some definitions in regarding Alloy.\\
 
-\noindent The example describes a homework submission and grading system. Student's work may be submitted in pairs or individually. The gradebook stores the grade for each student on each submission. The system has some constraints and actions like enrolling students but they will be discussed later on.\\
+\noindent The example describes a homework submission and grading system. Student's work may be submitted in pairs or individually. The $gradebook$ stores the grades for each student on each submission. The system has some constraints and actions like enrolling students, but they will be discussed later on.\\
 \begin{lstlisting}
 sig Submission {}
 sig Grade {}
@@ -684,11 +684,11 @@ work = \{<Construction, Guy, hwk1>.. \}\\
 gradebook = \{<Construction, Guy, homework, 8> ..\}$\\
 
 \noindent For every relation, a junction table is created. It describes the relationship between the different multiple relations and the atoms.
-Every table contains the ids of the atoms that the relation describes. The table name is based on the relation name (right side before the colon sign $:$). Relation can be unary or binary. Binary relation is expressed by the tuple sign $\rightarrow$.\\
+Every table contains the ids of the atoms that the relation describes. The table's name is based on the relation name (right side before the colon sign $:$). Relation can be unary or binary. Binary relation is expressed by the tuple sign $\rightarrow$.\\
 
-\noindent Moreover, Forgery adds SQL Foreign Keys that links between the tables. They are naturally extracted from the Alloy semantics. It guarantee that every junction table will contain valid data that points to existing atoms.\\
+\noindent Moreover, Forgery adds SQL Foreign Keys that link between the tables. They are naturally extracted from the Alloy semantics. It guarantees that every junction table will contain valid data that points to existing atoms.\\
 
-\noindent When a relation points to a another relation, Forgery extracts the atomic type. Which means, in other words, Forgery flattens all the relations so the tables will contain pointers to atomic tables only, and this way, the relationships between the tables would be simpler. It adds data redundancy but it makes the algorithm much more simple (see next chapter).
+\noindent When a relation points to another relation, Forgery extracts the atomic type. In other words, it means that Forgery flattens all the relations so the tables will contain pointers to only atomic tables, and this way, the relationships between the tables would be simpler. It adds data redundancy, but it makes the algorithm much more simple (see next chapter).
 
 \begin{figure}[h!]
 \centering
@@ -699,7 +699,7 @@ Every table contains the ids of the atoms that the relation describes. The table
 \newpage
 \section{Procedures Generation}
 
-\noindent Stored Procedure is a SQL feature that encapsulates a query for re-usability purposes. It is used as a layer that communicates with the database internally. Stored Procedures allow faster execution time and they may be useful as a safer synthesizing mechanism (E.g. privileges) \cite{when}.\\
+\noindent Stored Procedure is an SQL feature that encapsulates a query for re-usability purposes. It is used as a layer that communicates with the database internally. Stored Procedures allow faster execution time and they may be useful as a safer synthesizing mechanism (E.g. privileges) \cite{when}.\\
 
 \noindent Basically, Stored Procedures are similar to other programming languages in that they can accept input parameters and return multiple values. Also, they may contain programming statements for performing operations in the database and indicate status of failure or success.\\
 
@@ -708,12 +708,12 @@ Every table contains the ids of the atoms that the relation describes. The table
 \subsection{Quantifiers}
 \noindent Alloy syntax supports multiple quantifiers to describe constraints on the data model: \textbf{\textit{no}} (zero), \textbf{\textit{all}} (for all), \textbf{\textit{lone}} (at most one atom), \textbf{\textit{some}} (at least one atom) and \textbf{\textit{one}} (single atom).\\
 
-Quantifiers can be used in multiple places and might have slightly different context. E.g. expressions, signatures, facts etc.
+Quantifiers can be used in multiple places and might have slightly different context. E.g. expressions, signatures, facts, etc.
 For example, the constraint $lone e$ says that the expression $e$ denotes a relation containing at most one tuple. Or $one sig S$, for example, declares S to be a signature whose set contains exactly one element.\\
 
 For each quantifier we create a procedure. Each procedure contains a query that counts the rows and group it based on the quantifier context and then compare it to the specified quantifier definition ($c<=1$, $c==1$, $c>1$, $c==0$, $c(*)$).\\
 
-We implemented quantifiers (or cardinality constraints) as invariants. In other words, these procedures are automatically called every time when the database is changed. If any violation occurs, the data will be reverted and error will be shown (transactional action). The quantifier procedures are stored in the database and can be identified with the prefix \textit{q\_}.\\
+We implemented quantifiers (or cardinality constraints) as invariant. In other words, these procedures are automatically called every time when the database is changed. If any violation occurs, the data will be reverted and error will be shown (transaction action). The quantifier procedures are stored in the database and can be identified with the prefix \textit{q\_}.\\
 
 The following example applies cardinality constraints on $school$ and $work$.
 
@@ -770,9 +770,9 @@ Forgery uses two techniques to implement those constraints: \\
 
 \subsection{Predicates}
 \label{sec:predicatesgen}
-In this section we will discuss about the logic behind the interpretation of Alloy predicates and creation of atoms. The same example from the previous sections will be expanded.\\
+In this section we will discuss the logic behind the interpretation of Alloy predicates and creation of atoms. The same example from the previous sections will be expanded.\\
 
-\noindent The new statements introduces new features such as adding or deleting students, as they enroll in or drop the course, and assigning grades for each of their submitted work in pairs.\\
+\noindent The new statements introduce new features such as adding or deleting students, as they enroll in or drop the course, and assigning grades for each of their submitted work in pairs.\\
 
 \begin{lstlisting}
 sig Submission {}
@@ -822,9 +822,9 @@ bar ::=\ |$\\
 
 \noindent\underline{Predicates Header:}\\
 
-\noindent Predicates accept inputs from the user that are used for the states transformation. Each input contains a variable and a mapping to his belonged table. Similarly to Alchemy \cite{alchemy}, Forgery uses the prime symbol $'$ as a variable suffix to distinguish between pre- and post-states of the operation (e.g. $c$ and $c'$).\\
+\noindent Predicates accept inputs from the user that are used for the states' transformation. Each input contains a variable and a mapping to his belonged table. Similarly, Alchemy \cite{alchemy}, Forgery uses the prime symbol $'$ as a variable suffix to distinguish between pre- and post-states of the operation (e.g. $c$ and $c'$).\\
 
-\noindent The inputs may be one of the two different types: an integer or a string. Inputs accept integers as default and each of them represents an Atom id. However, when it comes to a new Atom the id does not exist yet. Therefore, Forgery uses the underline symbol $\_$ in the variable prefix to refer to a new atom. In this case, the input type is a string, which is the data that the Atom carries. It may be a name of a course or a student and it may be just empty, depends on our model.\\
+\noindent The inputs may be one of the two different types: an integer or a string. Inputs accept integers as default and each of them represents an Atom id. However, when it comes to a new Atom the id does not exist yet. Therefore, Forgery uses the underline symbol $\_$ in the variable prefix to refer to a new atom. In this case, the input type is a string, which is the value of the atom. It may be a name of a course or a student and it may be just empty, depends on our model.\\
 
 For each request for new atom, an Insert query will be added to the procedure, and the created id will be placed in the variable value. E.g. in our example $\_sNew : Student$ the generated query will be:
 \begin{lstlisting}[escapechar=@,language=SQL]
@@ -958,7 +958,7 @@ END //
 
 \subsection{Facts}
 \label{sec:factsgen}
-A $fact$ is a constraint that always holds (that can also be regarded as an assumption). Similarly to quantifiers, we use procedures as an implementation for such invariants. Those procedures are called when the database is changed and revert the data in case of failure. This way, we can guarantee that the data always valid. \\\\
+A $fact$ is a constraint that always holds (that can also be regarded as an assumption). Similar to quantifiers, we use procedures as an implementation for such invariants. Those procedures are called when the database is changed and revert the data in case of failure. This way, we can guarantee that the data always valid. \\\\
 $factDecl\ ::=\ fact\ [name]\ block$\\
 $block\ ::=\ { expr* }$\\
 $expr ::= qualName\\
@@ -970,7 +970,7 @@ $decl\ ::=\ [disj]\ name,+\ :\ [disj]\ expr$\\
 $blockOrBar\ ::=\ block\ |\ bar\ expr\\
 bar ::=\ |$\\
 
-A fact consist of a name and the constraint, which is given as a block of algebraic sequence (written like in predicates, see operators in the previous section). We can also define variables and quantifiers criteria. E.g. The constraint $one\ x:\ S | F$ says that there is exactly one x that satisfies the constraint F.\\
+A fact consists of a name and the constraint, which is given as a block of algebraic sequence (written like in predicates, see operators in the previous section). We can also define variables and quantifiers criteria. E.g. The constraint $one\ x:\ S | F$ says that there is exactly one x that satisfies the constraint F.\\
 
 The following constraint defines that all students must be enrolled.
 
@@ -1022,7 +1022,7 @@ END //
 \label{sec:algorithm}
 
 \subsection{Scheme Generation}
-This algorithm generates a SQL code that represents a database schema creation. For each atom we generate a table that contains a pair of identifier and value. For each signature we create a junction table. Each of those junction tables contain fields that points to the relevant atom (using identifiers) based on relations. Since the relations can be recursive (points to another relation) we flatten them so they will point directly to atoms. In addition, we create foreign keys for those pointers and define the identifiers as primary keys.
+This algorithm generates an SQL code that represents a database schema creation. For each atom we generate a table that contains a pair of identifier and value. For each signature we create a junction table. Each of those junction tables contain fields that point to the relevant atom (using identifiers) based on relations. Since the relations can be recursive (points to another relation) we flatten them so they will point directly to atoms. In addition, we create foreign keys for those pointers and define the identifiers as primary keys.
 \\\\
 The scheme is generated based on the signatures, fields and quantifiers.\\
 Let $S$ be a list of signatures, $s$ is a single signature, $R$ is its contained relations, $r$ is a single relation.
@@ -1086,9 +1086,9 @@ Let $S$ be a list of signatures, $s$ is a single signature, $R$ is its contained
 \newpage
 
 \subsection{Procedures Generation for Predicates}
-This algorithm generates a SQL code that represents procedures creation for predicates. Each procedure we wrap with an exception thrower that performs a rollback operation in case of failure in the state changes. For each input of a predicate we check whether it is an identifier or it refers to a new atom. If it refers to a new atom then we insert it to its relevant table and extract its new identifier. 
+This algorithm generates an SQL code that represents procedures creation for predicates. Each procedure we wrap with an exception thrower that performs a rollback operation in case of failure in the state changes. For each input of a predicate we check whether it is an identifier or it refers to a new atom. If it refers to a new atom, then we insert it to its relevant table and extract its new identifier. 
 \\\\
-Then we process the body of the predicate, which is a list of algebraic operations. We simplify it to joins and flatten structure. We convert the supported Alloy subset into its equivalent SQL syntax. When it comes to post-condition, each operation can be insert or delete. With pre-conditions we check if the condition exists (e.g. the atom exists or not), and in case such condition violated we revert the changes and stop the execution. 
+Then we process the body of the predicate, which is a list of algebraic operations. We simplify it to joined information and flatten structure. We convert the supported Alloy subset into its equivalent SQL syntax. When it comes to post-condition, each operation can be insert or delete. With preconditions we check if the condition exists (e.g. the atom exists or not), and in case such condition violated we revert the changes and stop the execution. 
 \\\\
 Let $p$ be a predicate, containing its name, its inputs and its body. The body contains the pre- and the post-conditions (operations). $l$ is a line of operation. $i$ is an input. It contains its type, its name and its value.\\
 \begin{algorithm}
@@ -1133,10 +1133,10 @@ Let $p$ be a predicate, containing its name, its inputs and its body. The body c
 
 \subsection{Procedures Generation for Invariants}
 
-This algorithm generates a SQL code that represents procedures creation for invariants. There are two types of invariants that we generate here: facts and quantifiers. Each procedure we wrap with a flag modifier that indicates whether the system is in a valid state or not. When the flag indicates of a violation the transacted operations will rollback. Each fact contains a list of conditions which we check similarly to post-conditions in predicates (see previous section).\\
+This algorithm generates an SQL code that represents procedures creation for invariants. There are two types of invariants that we generate here: facts and quantifiers. Each procedure we wrap with a flag modifier that indicates whether the system is in a valid state or not. When the flag indicates of a violation the transacted operations will rollback. Each fact contains a list of conditions which we check similarly to post-conditions in predicates (see previous section).\\
 In addition, for each quantifier we count the relevant rows in the table and check if it is valid according to the specified quantifier definition.
 \\\\
-Let $f$ be a fact, containing its name, its variables, and its body. The body contains the invariants. $n$ is an invariant. Each variable $v$ contains its type, its name and its value.\\
+Let $f$ be a fact, containing its name, its variables, and its body. The body contains invariant. $n$ is an invariant. Each variable $v$ contains its type, its name and its value.\\
 Let $q$ be a quantifier, containing its type, its context and its restriction domain properties.
 
 \begin{algorithm}
@@ -1209,10 +1209,10 @@ Let $q$ be a quantifier, containing its type, its context and its restriction do
 \subsection{Reverse Engineering}
 When \textit{Alloy} simulates a model, it generates traces and saves them as a temporary XML file. Those traces describe the data history of the system and the transition between them.\\\\
 The idea was to use those traces to imitate the same behavior in our generated database system. In other words, use the same initial data, and follow the same operations that Alloy did. Then, we are able to compare the results of Forgery to those in \textit{Alloy}.\\\\
-We use this reverse engineering technique to make sure our solution is consistent to \textit{Alloy} behavior and evaluates our system that way.\\\\
+We use this reversed engineering technique to make sure our solution is consistent to \textit{Alloy} behavior and evaluates our system that way.\\\\
 However, we found that the traces miss some important information.\\\\
 By default, the traces are not ordered and this has to be configured manually. Otherwise, the traces are useless because we cannot identify the order of the operations and imitate them. To enable ordering in Alloy, the ordering library has to be included and initialized using a predicate named $init$. Moreover, the logic behind the transition from one step to another has to be defined. It can be done using a fact named $traces$.\\\\
-Besides, although we can now have an ordered list of the data history, we unable to identify which predicates were used. It means that we cannot sure which operation to use to imitate the transition between the different steps. In order to deal with it we used a small hack. We added an arbitrary atom called $operation\_id$ so Alloy will create traces for it. This atom identifies each operation. On each step we use the traces of this identifier to know what operation was used.\\\\
+Besides, although we can now have an ordered list of the data history, we are unable to identify which predicates were used. It means that we cannot sure which operation to use to imitate the transition between the different steps. In order to deal with it we used a small hack. We added an arbitrary atom called $operation\_id$ so Alloy will create the traces for it. This atom identifies each operation. On each step we use the traces of this identifier to know what operation was used.\\\\
 Forgery ignores the predicate $init$, the fact $traces$ and the field $operation\_id$ as they are not relevant for generating the database system.\\\\
 In the following example we added the mentioned tweaks, so we are able to generate the correct traces. The code is included, and later the data flow is explained briefly.\\
 
@@ -1247,13 +1247,135 @@ fact traces{
 \includegraphics[scale=0.7]{output_traces}
 \end{center}
 
-The data flow:
+\subsubsection{The data flow}
 \begin{enumerate}
 	\item Initializing (0): The precondition for the initializing state is that there are no students enrolled and therefore no students enrolled to Course0.
 	\item Enrolling (1): The student is enrolled to Course1.
 	\item Enrolling (1): The student is enrolled to Course2.
 \end{enumerate}
 
+\subsubsection{XML}
+
+As mentioned, the traces are stored in an XML file. They contain all the data of the final state, and when ordered, we can identify which operations were executed. In the following output we can see that $Course$ table contains three different courses and $Student$ is a singleton. Also, this student is enrolled to Course 1 and to Course 2 ($roster$). The ordered operations which are listed in the $operation\_id$ field match to the previously described data flow.
+
+\begin{lstlisting}
+<alloy>
+<sig label="seq/Int" ID="0" parentID="1" builtin="yes"></sig>
+<sig label="Int" ID="1" parentID="2" builtin="yes"></sig>
+<sig label="String" ID="3" parentID="2" builtin="yes"></sig>
+<sig label="this/Student" ID="4" parentID="2">
+   <atom label="Student$0"/>
+</sig>
+<sig label="this/Course" ID="5" parentID="2">
+   <atom label="Course$0"/>
+   <atom label="Course$1"/>
+   <atom label="Course$2"/>
+</sig>
+<field label="roster" ID="6" parentID="5">
+   <tuple> <atom label="Course$1"/> <atom label="Student$0"/> </tuple>
+   <tuple> <atom label="Course$2"/> <atom label="Student$0"/> </tuple>
+   <types> <type ID="5"/> <type ID="4"/> </types>
+</field>
+<field label="operation_id" ID="7" parentID="5">
+   <tuple> <atom label="Course$0"/> <atom label="0"/> </tuple>
+   <tuple> <atom label="Course$1"/> <atom label="1"/> </tuple>
+   <tuple> <atom label="Course$2"/> <atom label="1"/> </tuple>
+   <types> <type ID="5"/> <type ID="1"/> </types>
+</field>
+<sig label="CourseOrder/Ord" ID="8" parentID="2" one="yes" private="yes">
+   <atom label="CourseOrder/Ord$0"/>
+</sig>
+<field label="First" ID="9" parentID="8" private="yes">
+   <tuple> <atom label="CourseOrder/Ord$0"/> <atom label="Course$0"/> </tuple>
+   <types> <type ID="8"/> <type ID="5"/> </types>
+</field>
+<field label="Next" ID="10" parentID="8" private="yes">
+   <tuple><atom label="Course$0"/><atom label="Course$1"/></tuple>
+   <tuple>=<atom label="Course$1"/><atom label="Course$2"/></tuple>
+   <types> <type ID="8"/> <type ID="5"/> <type ID="5"/> </types>
+</field>
+</instance>
+</alloy>
+\end{lstlisting}
+
+We executed the same operations in Forgery's database schema and by using its procedures ($p\_enroll$, $create\_course$, $create\_student$).  The output was similar.
+
+\subsubsection{Database}
+
+%
+% Structure: course
+%
+ \begin{longtable}{|l|c|c|c|l|} 
+ \caption{Structure of table course} \label{tab:course-structure} \\
+ \hline \multicolumn{1}{|c|}{\textbf{Column}} & \multicolumn{1}{|c|}{\textbf{Type}} & \multicolumn{1}{|c|}{\textbf{Null}} & \multicolumn{1}{|c|}{\textbf{Default}} & \multicolumn{1}{|c|}{\textbf{Comments}} \\ \hline \hline
+\endfirsthead
+ \caption{Structure of table course (continued)} \\ 
+ \hline \multicolumn{1}{|c|}{\textbf{Column}} & \multicolumn{1}{|c|}{\textbf{Type}} & \multicolumn{1}{|c|}{\textbf{Null}} & \multicolumn{1}{|c|}{\textbf{Default}} & \multicolumn{1}{|c|}{\textbf{Comments}} \\ \hline \hline \endhead \endfoot 
+\textbf{\textit{id}} & int(6) & No &  \\ \hline 
+value & varchar(100) & Yes & NULL \\ \hline 
+ \end{longtable}
+
+%
+% Data: course
+%
+ \begin{longtable}{|l|l|} 
+ \hline \endhead \hline \endfoot \hline 
+ \caption{Content of table course} \label{tab:course-data} \\\hline \multicolumn{1}{|c|}{\textbf{id}} & \multicolumn{1}{|c|}{\textbf{value}} \\ \hline \hline  \endfirsthead 
+\caption{Content of table course (continued)} \\ \hline \multicolumn{1}{|c|}{\textbf{id}} & \multicolumn{1}{|c|}{\textbf{value}} \\ \hline \hline \endhead \endfoot
+1 & Course\$0 \\ \hline 
+2 & Course\$1 \\ \hline 
+3 & Course\$2 \\ \hline 
+ \end{longtable}
+ 
+ %
+% Structure: student
+%
+ \begin{longtable}{|l|c|c|c|l|} 
+ \caption{Structure of table student} \label{tab:student-structure} \\
+ \hline \multicolumn{1}{|c|}{\textbf{Column}} & \multicolumn{1}{|c|}{\textbf{Type}} & \multicolumn{1}{|c|}{\textbf{Null}} & \multicolumn{1}{|c|}{\textbf{Default}} & \multicolumn{1}{|c|}{\textbf{Comments}} \\ \hline \hline
+\endfirsthead
+ \caption{Structure of table student (continued)} \\ 
+ \hline \multicolumn{1}{|c|}{\textbf{Column}} & \multicolumn{1}{|c|}{\textbf{Type}} & \multicolumn{1}{|c|}{\textbf{Null}} & \multicolumn{1}{|c|}{\textbf{Default}} & \multicolumn{1}{|c|}{\textbf{Comments}} \\ \hline \hline \endhead \endfoot 
+\textbf{\textit{id}} & int(6) & No &  \\ \hline 
+value & varchar(100) & Yes & NULL \\ \hline 
+ \end{longtable}
+
+%
+% Data: student
+%
+ \begin{longtable}{|l|l|} 
+ \hline \endhead \hline \endfoot \hline 
+ \caption{Content of table student} \label{tab:student-data} \\\hline \multicolumn{1}{|c|}{\textbf{id}} & \multicolumn{1}{|c|}{\textbf{value}} \\ \hline \hline  \endfirsthead 
+\caption{Content of table student (continued)} \\ \hline \multicolumn{1}{|c|}{\textbf{id}} & \multicolumn{1}{|c|}{\textbf{value}} \\ \hline \hline \endhead \endfoot
+1 & Student\$0 \\ \hline 
+ \end{longtable}
+ 
+ %
+% Structure: roster
+%
+ \begin{longtable}{|l|c|c|c|l|} 
+ \caption{Structure of table roster} \label{tab:roster-structure} \\
+ \hline \multicolumn{1}{|c|}{\textbf{Column}} & \multicolumn{1}{|c|}{\textbf{Type}} & \multicolumn{1}{|c|}{\textbf{Null}} & \multicolumn{1}{|c|}{\textbf{Default}} & \multicolumn{1}{|c|}{\textbf{Comments}} \\ \hline \hline
+\endfirsthead
+ \caption{Structure of table roster (continued)} \\ 
+ \hline \multicolumn{1}{|c|}{\textbf{Column}} & \multicolumn{1}{|c|}{\textbf{Type}} & \multicolumn{1}{|c|}{\textbf{Null}} & \multicolumn{1}{|c|}{\textbf{Default}} & \multicolumn{1}{|c|}{\textbf{Comments}} \\ \hline \hline \endhead \endfoot 
+\textbf{\textit{id}} & int(6) & No &  \\ \hline 
+\textbf{course\_id} & int(6) & No &  \\ \hline 
+\textbf{student\_id} & int(6) & No &  \\ \hline 
+ \end{longtable}
+
+%
+% Data: roster
+%
+ \begin{longtable}{|l|l|l|} 
+ \hline \endhead \hline \endfoot \hline 
+ \caption{Content of table roster} \label{tab:roster-data} \\\hline \multicolumn{1}{|c|}{\textbf{id}} & \multicolumn{1}{|c|}{\textbf{course\_id}} & \multicolumn{1}{|c|}{\textbf{student\_id}} \\ \hline \hline  \endfirsthead 
+\caption{Content of table roster (continued)} \\ \hline \multicolumn{1}{|c|}{\textbf{id}} & \multicolumn{1}{|c|}{\textbf{course\_id}} & \multicolumn{1}{|c|}{\textbf{student\_id}} \\ \hline \hline \endhead \endfoot
+1 & 2 & 1 \\ \hline 
+2 & 3 & 1 \\ \hline 
+ \end{longtable}
+
+\newpage
 \subsection{Validation Scenarios}
 
 In order to validate \textit{Forgery's} output we have to consider the following scenarios:
@@ -1286,7 +1408,7 @@ For those two cases, we iterate over all the correct \textit{Alloy} models. And 
 
 For those two cases, we use the assertions results (counter-example traces) and imitate each step in Forgery as described before.\\
 
-Simulating those four scenarios in Forgery for different inputs will support us finding bugs in Forgery, and fix them so it will better matched to Alloy's behavior. Currently, the process itself is not fully automatic, however, we used multiple inputs and compared them in order to cover as many scenarios as possible.
+Simulating those four scenarios in Forgery for different inputs will support us finding bugs in Forgery, and fix them so it will better match to Alloy's behavior. Currently, the process itself is not fully automatic, but we used multiple inputs and compared them in order to cover as many scenarios as possible.
 
 \newpage
 \section{Discussion}
@@ -1294,25 +1416,25 @@ Alloy improves the software design process by creating models and verifying them
 \\\\
 We tried to achieve this purpose by creating a tool that  transforms Alloy specifications into SQL for database schema and transactions synthesizing. In other words, we had to identify a subset of the Alloy syntax that is equivalent to a relational database schema with constraints and functions, and then create a tool that automatically converts the first into the second accordingly.
 \\\\
-This thesis has shown that it is possible to convert a subset of Alloy specifications into SQL. We created Forgery and offered it as such a solution. Forgery generates a pure SQL code that results in database schema with foreign keys, procedures with conditions for updating data and constraints based on facts and cardinalities.
+This thesis has shown that it is possible to convert a subset of Alloy specifications into SQL. We created Forgery and offered it as a solution. Forgery generates a pure SQL code that results in database schema with foreign keys, procedures with conditions for updating data and constraints based on facts and cardinalities.
 \\\\
 Forgery has a number of possible limitations. Forgery supports only a subset of Alloy syntax that was introduced previously. It includes signatures, fields (with quantifiers) and a basic form of predicates and facts. In addition, we do not support some relation operators, first order logic and some other grammar. 
 \\\\
-In Alloy book we found few examples that breaks Forgery because they use syntax that we do not fully support. For example, address book 3a \cite[p. ~25]{abstractions}. Such issues can be improved by extending the AST module and improving the validator.
+In Alloy book we found few examples that break Forgery because they use syntax that we do not fully support. For example, address book 3a \cite[p. ~25]{abstractions}. Such issues can be improved by extending the AST module and improving the validator.
 \\\\
 There might be other scenarios that we did not check where Forgery breaks. Therefore, future larger studies with more analyses and additional implementations would be necessary before Forgery can be fully complete.
 
 \subsection{Alchemy Comparison}
 Although related papers will be presented in a dedicated chapter, there is a unique paper called Alchemy \cite{alchemy} that we 
-have studied deeply. Only this study, to our knowledge, has examined overlapping scope. Hence we decided to include it in this discussion. Similarly to Forgery, Alchemy compiles Alloy specifications into database implementation. We will discuss about the main differences here.
+have studied deeply. Only this study, to our knowledge, has examined overlapping scope. Hence, we decided to include it in this discussion. Similarly to Forgery, Alchemy compiles Alloy specifications into database implementation. We will discuss the main differences here.
 
 \subsubsection{Forgery uses pure SQL}
-Alchemy generates a synthesizing API as a layer that communicates with the database. In other words, the data validity can be guaranteed only when this API is used. In contrast, Forgery generates a SQL system with constraints that are implemented in the tables and the database level itself. Hence, it is more robust - the validation occurs in the data storing level. Also, SQL language is usually more familiar for technical people. And therefore, it may give a communication advantage.
+Alchemy generates a synthesizing API as a layer that communicates with the database. In other words, the data validity can be guaranteed only when this API is used. In contrast, Forgery generates an SQL system with constraints that are implemented in the tables and the database level itself. Hence, it is more robust - the validation occurs in the data storing level. Also, SQL language is usually more familiar for technical people. And therefore, it may give a communication advantage.
 
 \subsubsection{Alchemy has no evaluation and assertions are not supported}
-As introduced before, Alloy supports assertions for checking the model. Using the powerful Analyzer we able to detect mistakes in our specifications. Forgery supports assertions and even use their traces for evaluation. Alchemy introduced a shortcut to write predicates. However, those predicate specifications might be in contradiction to invariants. They added an auto-repair functionality that fix the data in case it has a conflict. However, since the specifications are invalid by the nature of Alloy. The assertions and the analyzer cannot be used. Alchemy does not have evaluation method.
+As introduced before, Alloy supports assertions for checking the model. Using the powerful Analyzer we are able to detect mistakes in our specifications. Forgery supports assertions and even use their traces for evaluation. Alchemy introduced a shortcut to write predicates. However, those predicate specifications might be in contradiction to invariants. They added an auto-repair functionality that fixes the data in case it has a conflict. However, since the specifications are invalid by the nature of Alloy. The assertions and the analyzer cannot be used. Alchemy does not have evaluation method.
 
-\subsubsection{Forgery supports atoms control}
+\subsubsection{Forgery supports atoms' control}
 Alchemy does not generate command options to insert or delete atoms. By default, Forgery creates such procedures (With an option to create them manually) so atoms can be created.
 
 \newpage
@@ -1322,8 +1444,7 @@ Alchemy does not generate command options to insert or delete atoms. By default,
 Alloy is increasingly becoming a popular declarative modeling language. It is powerful by providing early error detection, supported by analysis tools for simulating and debugging models \cite{lightning}. There were few related papers that were written about Alloy.
 
 \section{From UML to Alloy and Back Again}
-This paper presents a tool for transforming
-UML models (diagrams) to Alloy and vice versa. Basically, few techniques which are presented here can be used in our research of transforming Alloy into SQL. For example, for generating ASTs and analysis. In addition, the purpose of this UML-Alloy conversion allows to identify consistencies in those UML models which is similar to what we were trying to achieve with FORS for business models. 
+This paper presents a tool for transforming UML models (diagrams) to Alloy and vice versa. Basically, few techniques which are presented here can be used in our research of transforming Alloy into SQL. For example, for generating ASTs and analysis. In addition, the purpose of this UML-Alloy conversion allows identifying consistencies in those UML models which is similar to what we were trying to achieve with FORS for business models. 
 
 \section{Alchemy: Transmuting Base Alloy Specifications into Implementations}
 As discussed previously, Alchemy compiles Alloy specifications into implementation of API for persistent databases. Alchemy translates a subset of Alloy predicates into update operations and it converts facts into database integrity constraints. This paper overlaps with some parts of our research. We studied this article in order to create a better tool. We discussed about the main differences and compared Alchemy against Forgery in section 5.3.
@@ -1334,10 +1455,10 @@ As discussed previously, Alchemy compiles Alloy specifications into implementati
 // can be used for the intro etc
 An abstract Alloy specification is far from an actual implementation, and manual implementation is not easy. refining the former into the latter is unfortunately a non-trivial task.
 \end{comment}
-This paper identifies a subset of the Alloy language that is equivalent to a relational database schema with integrity constraints. In light of Forgery, identifying such a subset is essential for part of our research. This paper is also similar in a way that It also outputs a SQL database. However, this paper is missing a discussion about predicates and facts, which are vital for FORS project.
+This paper identifies a subset of the Alloy language that is equivalent to a relational database schema with integrity constraints. In light of Forgery, identifying such a subset is essential for part of our research. This paper is also similar in a way that It also outputs an SQL database. However, this paper is missing a discussion about predicates and facts, which are vital for FORS project.
 
 \section{Towards an Operational Semantics for Alloy}
-This paper discuss about writing stateful Alloy specifications. It formalize a natural notion of transition semantics for state-based specifications and demonstrates it using examples. Database operations are also state-based and few ideas used for creating Forgery, especially for the evaluation part which we used traces (states) to validate Forgery.
+This paper introduces methods of writing stateful Alloy specifications. It formalizes a natural notion of transition semantics for state-based specifications and demonstrates it using examples. Database operations are also state-based and few ideas used for creating Forgery, especially for the evaluation part which we used traces (states) to validate Forgery.
 
 \newpage
 
@@ -1345,9 +1466,9 @@ This paper discuss about writing stateful Alloy specifications. It formalize a n
 
 In this work we presented \textit{Forgery} as a tool that supports the realization of \textit{Alloy}-based specifications. We were able to generate a full-scale database including structural tables, constraints and functions for operations over data. The output is a pure SQL that doesn't require any external API or additional dependencies. In addition, it is easily expandable by using different SQL features. For example, it is possible to manage privileges of users and that way increasing security.\\ 
 
-As mentioned before, it is not possible to develop fault-free software in practical scenario considering human nature \cite{reliability}. That also applies for \textit{Forgery}. Hence, we developed a validation mechanism with reverse engineering that allows us to compare the results to those in \textit{Alloy}. Moreover, enabling Assertions helps to find issues in the model; A feature that was not available in other related work like $Alchemy$.\\
+As mentioned before, it is not possible to develop fault-free software in practical scenario considering human nature \cite{reliability}. That also applies for \textit{Forgery}. Hence, we developed a validation mechanism with reverse engineering that allows us to compare the results to those in \textit{Alloy}. Moreover, enabling Assertions help to find issues in the model; A feature that was not available in other related work like $Alchemy$.\\
 
-Together with \textit{Fors} we created a toolchain that supports the main software development processes: modelling and implementation. Those two important processes have direct affect on the software quality. By improving them organizations might save lot of money or other resources.\\
+Together with \textit{Fors} we created a tool chain that supports the main software development processes: modeling and implementation. Those two important processes have direct effect on the software quality. By improving them organizations might save lot of money or other resources.\\
 
 There are still challenges to be solved in \textit{Forgery}, for instance, expanding the set of supported \textit{Alloy} syntax and resolving potential exceptions. Especially by continuing the development of the assertions and the reverse engineering system. However, to the best of our knowledge, considering multiple scenarios, \textit{Forgery} has achieved his main purpose. 
 
