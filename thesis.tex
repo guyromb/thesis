@@ -39,13 +39,13 @@
 	\vspace{2mm}
 	{\scshape\Large Master Thesis Project\par}
 	\vspace{1.5cm}
-	{\Huge\bfseries Forgery\par}
-	{\huge\bfseries Databases Generation and Transactions Synthesizing based on Alloy models\par}
+	{\Huge\bfseries Forgery:\par}
+	{\huge\bfseries Generating Databases and Synthesizing Transactions  from Alloy Models\par}
 	\vspace{1cm}
 	{\Large\itshape Guy - Sean Rombaut\par}
 	\vfill
 	Supervised by:\par
-	Dr.~Tijs van der Storm\par
+	Prof. Dr.~Tijs van der Storm\par
 	Dr.~Jouke Stoel\par
 	\vspace{1cm}
 	Organizations:\par
@@ -565,6 +565,7 @@ We implemented \textit{Forgery} using \textit{Rascal MPL} which was created by \
 Since we used a standard SQL language, any arbitrary database system can be used. We chose \textit{MySQL}, which is popular choice. MySQL offers a free visual tool named Workbench. It allows data modeling, SQL development and different server/database administration tools.
 \\\\
 \subsubsection{Metrics}
+
 \def\arraystretch{1.5}%
 \begin{table}[h!]
   \label{tab:table1}
@@ -579,8 +580,8 @@ Since we used a standard SQL language, any arbitrary database system can be used
     Runtime (Input LOC=90) & 31.2ms \\
     \hhline{-|-|-|}
   \end{tabular}
-  \centering
-  \caption{General Metrics}
+   \centering
+	\caption{Project size (excluding the generated outputs) and the runtime of the application for different inputs (lines of code).}
 \end{table}
 
 \def\arraystretch{1.5}%
@@ -625,7 +626,7 @@ Since we used a standard SQL language, any arbitrary database system can be used
 
 \newpage
 
-Forgery contains a main package and three additional packages. In total, it has thirteen modules as illustrated in figure 5.2. The Main module is responsible for starting the program and for exporting the SQL data in the end of the process. The parser converts the input into AST objects that are used by the database schema and procedures generator. Map modules are responsible to map between different objects, simplify the data structure and to extract different types of data.
+Forgery contains a main package and three additional packages. In total, it has thirteen modules as illustrated in figure 5.2 and table 5.2. The Main module is responsible for starting the program and for exporting the SQL data in the end of the process. The parser converts the input into AST objects that are used by the database schema and procedures generator. Map modules are responsible to map between different objects, simplify the data structure and to extract different types of data.
 
 \begin{figure}[h!]
 \centering
@@ -1298,7 +1299,8 @@ As mentioned, the traces are stored in an XML file. They contain all the data of
 </alloy>
 \end{lstlisting}
 
-We executed the same operations in Forgery's database schema and by using its procedures ($p\_enroll$, $create\_course$, $create\_student$).  The output was similar.
+We executed the same ordered operations in Forgery's database schema by using its procedures ($p\_enroll$, $create\_course$, $create\_student$).  The output was as expected. The generated tables were equivalent to the specified signatures and relations ($student$, $course$, $roster$). In addition, the data results of the simulated procedures were the same as traced (tuples in the XML file are equivalent to the stored rows).\\\\
+However, Alloy is managing $atoms$ differently. Alloy stores all types of $atoms$ in a single set called \textit{\textbf{univ}erse}, while Forgery stores the $atoms$ in different tables. We designed it that way because we think it is more natural to have different types of data in different tables.
 
 \subsubsection{Database}
 
@@ -1408,7 +1410,7 @@ For those two cases, we iterate over all the correct \textit{Alloy} models. And 
 
 For those two cases, we use the assertions results (counter-example traces) and imitate each step in Forgery as described before.\\
 
-Simulating those four scenarios in Forgery for different inputs will support us finding bugs in Forgery, and fix them so it will better match to Alloy's behavior. Currently, the process itself is not fully automatic, but we used multiple inputs and compared them in order to cover as many scenarios as possible.
+Simulating those four scenarios in Forgery for different inputs will support us finding bugs in Forgery, and fix them so it will better match to Alloy's behavior. Mismatches can be found as introduced in the last section. Comparing inputs and outputs, and imitating models generation using traces are vital for validating Forgery. 
 
 \newpage
 \section{Discussion}
